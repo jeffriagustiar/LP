@@ -35,6 +35,10 @@
     <script src="{{ url('/assets/js/datepicker/date-picker/datepicker.js') }}"></script>
     <script src="{{ url('/assets/js/datepicker/date-picker/datepicker.en.js') }}"></script>
     <script src="{{ url('/assets/js/datepicker/date-picker/datepicker.custom.js') }}"></script>
+
+    {{-- Chart --}}
+    <script src="{{ url('/assets/js/chart/chartjs/chart.min.js') }}"></script>
+    <script src="{{ url('/assets/js/chart/chartjs/chart.custom.js') }}"></script>
     <!-- Plugins JS Ends-->
     
     <!-- Theme js-->
