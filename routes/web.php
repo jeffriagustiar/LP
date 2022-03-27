@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('pages.dashaboard');
+// });
 Route::get('/', function () {
-    return view('pages.dashaboard');
+    return view('pages.landing');
 });
