@@ -42,7 +42,7 @@ viho - Premium Admin Template
                   </g>
                 </svg> --}}
               </div>
-              <h5>8,50,49</h5>
+              <h5 id="sum1"></h5> {{-- sini 8,50,49 --}}
               <p>Our Annual Income</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"><i class="toprightarrow-primary fa fa-arrow-up me-2"></i>95.54% </a>
               <div class="parrten">
                 <i class="fa fa-money"></i>
@@ -289,7 +289,7 @@ viho - Premium Admin Template
 @endsection
 
 @push('after-script')
-<script>
+<script type="text/javascript">
   Chart.defaults.global = {
       animation: true,
       animationSteps: 60,
@@ -366,6 +366,33 @@ var barOptions = {
 var barCtx = document.getElementById("myBarGraph").getContext("2d");
 var myBarChart = new Chart(barCtx).Bar(barData, barOptions);
 
+$(document).ready(function(){
+  loadSum1();
+});
 
+let dollarUS = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "IDR",
+});
+
+function loadSum1(){
+  $.ajax({
+      url :'/sum1',
+      type : 'GET',
+      dataType : 'json',
+      success : function(data){
+        // console.log(data);
+        $('#sum1').append(dollarUS.format(data));
+      },
+      // error : function(error){
+      //   console.log(error);
+      //   $('#sum1').append(10);
+      // }
+  })
+}
+
+// var tes = document.getElementById("sum1")
+// tes.append("10")
+// $('#sum1').append(10)
 </script>
 @endpush

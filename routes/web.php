@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('pages.dashaboard');
 // });
-Route::get('/', function () {
-    return view('pages.landing');
-});
+Route::get('/dashaboard', function () {
+        return view('pages.dashaboard');
+    })->name('dashaboard');
+
+Route::get('/', 'LandingPageController@index')->name('landing');
+Route::get('/sum1', 'LandingPageController@sum1')->name('sum1');
