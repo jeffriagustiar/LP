@@ -13,7 +13,9 @@
     <link rel="shortcut icon" href="{{ url('/assets/images/favicon.png') }}" type="image/x-icon">
     <title>@yield('title')</title>
 
+    @stack('before-style')
     @include('includes.landing.style')
+    @stack('after-style')
     
   </head>
   <body class="landing-wrraper">
@@ -25,7 +27,7 @@
       <!-- Page Body Start-->
       <div class="page-body-wrapper">
         <!-- header start-->
-        @include('includes.landing.header')
+        {{-- @include('includes.landing.header') --}}
         <!-- header end-->
 
         @yield('conten')
@@ -35,7 +37,11 @@
         <!--footer end-->
       </div>
     </div>
+
+    @stack('before-script')
     @include('includes.landing.script')
+    @stack('after-script')
+
     <!-- Plugin used-->
   </body>
 
