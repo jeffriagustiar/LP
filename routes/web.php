@@ -22,3 +22,5 @@ Route::get('/dashaboard', function () {
 
 Route::get('/', 'LandingPageController@index')->name('landing');
 Route::get('/sum1', 'LandingPageController@sum1')->name('sum1');
+Route::get('/sum2', 'LandingPageController@sum2')->name('sum2');
+Route::get('/datachart', 'LandingPageController@dataChart')->name('datachart');

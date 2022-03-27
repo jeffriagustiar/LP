@@ -75,7 +75,7 @@ viho - Premium Admin Template
                   </g>
                 </svg> --}}
               </div>
-              <h5>2,03,59</h5>
+              <h5 id="sum2"></h5>{{-- sini --}}
               <p>our Annual losses</p><a class="btn-arrow arrow-secondary" href="javascript:void(0)"><i class="toprightarrow-secondary fa fa-arrow-up me-2"></i>90.54% </a>
               <div class="parrten">
                 <i class="fa fa-money"></i>
@@ -282,100 +282,23 @@ viho - Premium Admin Template
       </div>
     </div>
 
-
     
   </div>
 </div>
 @endsection
 
 @push('after-script')
-<script type="text/javascript">
-  Chart.defaults.global = {
-      animation: true,
-      animationSteps: 60,
-      animationEasing: "easeOutIn",
-      showScale: true,
-      scaleOverride: false,
-      scaleSteps: null,
-      scaleStepWidth: null,
-      scaleStartValue: null,
-      scaleLineColor: "#eeeeee",
-      scaleLineWidth: 1,
-      scaleShowLabels: true,
-      scaleLabel: "<%=value%>",
-      scaleIntegersOnly: true,
-      scaleBeginAtZero: false,
-      scaleFontSize: 12,
-      scaleFontStyle: "normal",
-      scaleFontColor: "#717171",
-      responsive: true,
-      maintainAspectRatio: true,
-      showTooltips: true,
-      multiTooltipTemplate: "<%= value %>",
-      tooltipFillColor: "#333333",
-      tooltipEvents: ["mousemove", "touchstart", "touchmove"],
-      tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
-      tooltipFontSize: 14,
-      tooltipFontStyle: "normal",
-      tooltipFontColor: "#fff",
-      tooltipTitleFontSize: 16,
-      TitleFontStyle : "Raleway",
-      tooltipTitleFontStyle: "bold",
-      tooltipTitleFontColor: "#ffffff",
-      tooltipYPadding: 10,
-      tooltipXPadding: 10,
-      tooltipCaretSize: 8,
-      tooltipCornerRadius: 6,
-      tooltipXOffset: 5,
-      onAnimationProgress: function() {},
-      onAnimationComplete: function() {}
-  };
-var barData = {
-  labels: ["January", "February", "March", "April", "May", "June", "July","Agustus","September","Oktober","November","Desember"],
-  datasets: [
-    {
-      label: "My First dataset",
-      fillColor: "rgba(36, 105, 92, 0.4)",
-      strokeColor: vihoAdminConfig.primary,
-      highlightFill: "rgba(36, 105, 92, 0.6)",
-      highlightStroke: vihoAdminConfig.primary,
-      data: [35, 59, 80, 81, 56, 55, 400]
-    }, 
-    // {
-    //   label: "My Second dataset",
-    //   fillColor: "rgba(186, 137, 93, 0.4)",
-    //   strokeColor: vihoAdminConfig.secondary,
-    //   highlightFill: "rgba(186, 137, 93, 0.6)",
-    //   highlightStroke: vihoAdminConfig.secondary,
-    //   data: [28, 48, 40, 19, 86, 27, 90]
-    // }
-  ]
-};
-var barOptions = {
-  scaleBeginAtZero: true,
-  scaleShowGridLines: true,
-  scaleGridLineColor: "rgba(0,0,0,0.1)",
-  scaleGridLineWidth: 1,
-  scaleShowHorizontalLines: true,
-  scaleShowVerticalLines: true,
-  barShowStroke: true,
-  barStrokeWidth: 2,
-  barValueSpacing: 5,
-  barDatasetSpacing: 1,
-};
-var barCtx = document.getElementById("myBarGraph").getContext("2d");
-var myBarChart = new Chart(barCtx).Bar(barData, barOptions);
 
-$(document).ready(function(){
-  loadSum1();
-});
+<script type="text/javascript">
+
+  
 
 let dollarUS = Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "IDR",
 });
 
-function loadSum1(){
+$(document).ready(function loadSum1(){
   $.ajax({
       url :'/sum1',
       type : 'GET',
@@ -384,13 +307,103 @@ function loadSum1(){
         // console.log(data);
         $('#sum1').append(dollarUS.format(data));
       },
-      // error : function(error){
-      //   console.log(error);
-      //   $('#sum1').append(10);
-      // }
   })
-}
+});
 
+$(document).ready(function loadSum2(){
+  $.ajax({
+      url :'/sum2',
+      type : 'GET',
+      dataType : 'json',
+      success : function(data){
+        // console.log(data);
+        $('#sum2').append(dollarUS.format(data));
+      },
+  })
+});
+var datachart =[]
+$(document).ready(function loadDataChart(){
+  $.ajax({
+      url :'/datachart',
+      type : 'GET',
+      dataType : 'json',
+      success : function(data){
+        
+      
+        for(let i = 0; i<data.length; i++){
+          datachart.push(data[i])
+        }
+        Chart.defaults.global = {
+          animation: true,
+          animationSteps: 60,
+          animationEasing: "easeOutIn",
+          showScale: true,
+          scaleOverride: false,
+          scaleSteps: null,
+          scaleStepWidth: null,
+          scaleStartValue: null,
+          scaleLineColor: "#eeeeee",
+          scaleLineWidth: 1,
+          scaleShowLabels: true,
+          scaleLabel: "<%=value%>",
+          scaleIntegersOnly: true,
+          scaleBeginAtZero: false,
+          scaleFontSize: 12,
+          scaleFontStyle: "normal",
+          scaleFontColor: "#717171",
+          responsive: true,
+          maintainAspectRatio: true,
+          showTooltips: true,
+          multiTooltipTemplate: "<%= value %>",
+          tooltipFillColor: "#333333",
+          tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+          tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+          tooltipFontSize: 14,
+          tooltipFontStyle: "normal",
+          tooltipFontColor: "#fff",
+          tooltipTitleFontSize: 16,
+          TitleFontStyle : "Raleway",
+          tooltipTitleFontStyle: "bold",
+          tooltipTitleFontColor: "#ffffff",
+          tooltipYPadding: 10,
+          tooltipXPadding: 10,
+          tooltipCaretSize: 8,
+          tooltipCornerRadius: 6,
+          tooltipXOffset: 5,
+          onAnimationProgress: function() {},
+          onAnimationComplete: function() {}
+      };
+      var barData = {
+                      labels: ["January", "February", "March", "April", "May", "June", "July","Agustus","September","Oktober","November","Desember"],
+                      datasets: [
+                        {
+                          label: "My First dataset",
+                          fillColor: "rgba(36, 105, 92, 0.4)",
+                          strokeColor: vihoAdminConfig.primary,
+                          highlightFill: "rgba(36, 105, 92, 0.6)",
+                          highlightStroke: vihoAdminConfig.primary,
+                          data: datachart
+                        }, 
+                      ]
+      };
+
+      var barOptions = {
+        scaleBeginAtZero: true,
+        scaleShowGridLines: true,
+        scaleGridLineColor: "rgba(0,0,0,0.1)",
+        scaleGridLineWidth: 1,
+        scaleShowHorizontalLines: true,
+        scaleShowVerticalLines: true,
+        barShowStroke: true,
+        barStrokeWidth: 2,
+        barValueSpacing: 5,
+        barDatasetSpacing: 1,
+      };
+      var barCtx = document.getElementById("myBarGraph").getContext("2d");
+      var myBarChart = new Chart(barCtx).Bar(barData, barOptions);
+      },
+  })
+});
 // var tes = document.getElementById("sum1")
 // tes.append("10")
 // $('#sum1').append(10)
