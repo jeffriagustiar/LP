@@ -304,16 +304,16 @@ $(document).ready( function dataload() {
     dataType : 'json',
     success : function(data){
       // for(let i=0; i<data.length; i++){
-        $('#data1').append("Nilai : "+data[0].nilai);
-        $('#dataw1').append("Pada : "+data[0].created_at);
-        $('#data2').append("Nilai : "+data[1].nilai);
-        $('#dataw2').append("Pada : "+data[1].created_at);
-        $('#data3').append("Nilai : "+data[2].nilai);
-        $('#dataw3').append("Pada : "+data[2].created_at);
-        $('#data4').append("Nilai : "+data[3].nilai);
-        $('#dataw4').append("Pada : "+data[3].created_at);
-        $('#data5').append("Nilai : "+data[4].nilai);
-        $('#dataw5').append("Pada : "+data[4].created_at);
+        $('#data1').append("Nomor STS : "+data[0].NOSTS+" Nilai : "+dollarUS.format(data[0].NILAI));
+        $('#dataw1').append("Pada : "+data[0].TGLSTS);
+        $('#data2').append("Nomor STS : "+data[1].NOSTS+" Nilai : "+dollarUS.format(data[1].NILAI));
+        $('#dataw2').append("Pada : "+data[1].TGLSTS);
+        $('#data3').append("Nomor STS : "+data[2].NOSTS+" Nilai : "+dollarUS.format(data[2].NILAI));
+        $('#dataw3').append("Pada : "+data[2].TGLSTS);
+        $('#data4').append("Nomor STS : "+data[3].NOSTS+" Nilai : "+dollarUS.format(data[3].NILAI));
+        $('#dataw4').append("Pada : "+data[3].TGLSTS);
+        $('#data5').append("Nomor STS : "+data[4].NOSTS+" Nilai : "+dollarUS.format(data[4].NILAI));
+        $('#dataw5').append("Pada : "+data[4].TGLSTS);
       // }
     }
   })
