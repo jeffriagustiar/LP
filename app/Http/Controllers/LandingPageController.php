@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\LandingModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class LandingPageController extends Controller
 {
@@ -39,22 +40,19 @@ class LandingPageController extends Controller
                                     ->groupBy('date')
                                     ->orderby('date')
                                     ->get();
-                                $data2= DB::table('tbl_nilai')->select(
-                                        [
-                                          DB::raw('SUM(nilai) as nilai'),
-                                        ])
-                                        ->whereMonth('created_at','1')
-                                        ->get();
         foreach($data as $d)
         {
             $a[] = $d->nilai;
-            // echo "<br>",$a;
         }
-        // dd($data);
         return response()->json($a,200);
-        // return response()->json($data,200);
-        // return view('pages.landing',[
-        //     'a' => "tes"
-        // ]);
+        
+    }
+
+    public function dataload()
+    {
+        $data = LandingModel::limit(5)->orderBy('created_at','desc')->get();
+        // dd($data);
+        // return DataTables::of($data)->make(true);
+        return response()->json($data,200);
     }
 }

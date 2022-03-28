@@ -27,3 +27,11 @@
 <link id="color" rel="stylesheet" href="{{ url('/assets/css/color-1.css') }}" media="screen">
 <!-- Responsive css-->
 <link rel="stylesheet" type="text/css" href="{{ url('/assets/css/responsive.css') }}">
+
+{{-- DataTable --}}
+{{-- <link rel="stylesheet" type="text/css" href="{{ url('/assets/css/datatables.css') }}"> --}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.css"/>
+
+
+ 
+

@@ -45,3 +45,8 @@
     <script src="{{ url('/assets/js/script.js') }}"></script>
     <script src="{{ url('/assets/js/theme-customizer/customizer.js') }}"></script>
     <!-- login js-->
+
+    {{-- DataTable --}}
+    
+    {{-- <script src="{{ url('/assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script> --}}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"></script>
