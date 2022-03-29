@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\LandingModel;
 use App\Model\Sp2dModel;
 use App\Model\StsModel;
+use GuzzleHttp\Psr7\Query;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -64,10 +65,13 @@ class LandingPageController extends Controller
         $data = StsModel::join('STS','RKMDETD.NOSTS','=','STS.NOSTS')
                             ->select(['STS.NOSTS','STS.TGLSTS','RKMDETD.NILAI'])
                             ->limit(5)
-                            ->orderBy(DB::raw('MONTH(STS.TGLSTS)'),'desc')
+                            ->orderBy('TGLSTS', 'desc')
                             ->get();
+                            // ->tosql();
         // dd($data);
         // return DataTables::of($data)->make(true);
         return response()->json($data,200);
+
+        // return Query($data);
     }
 }
