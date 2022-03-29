@@ -215,21 +215,21 @@ function loadSum2(){
   })
 }
 
-var datachart =[]
-$(document).ready(function loadDataChart(){
+
+function loadDataChart(){
   $.ajax({
       url :'/datachart',
       type : 'GET',
       dataType : 'json',
       success : function(data){
         
-      
+      var datachart =[]
         for(let i = 0; i<data.length; i++){
           datachart.push(data[i])
         }
         Chart.defaults.global = {
           animation: true,
-          animationSteps: 60,
+          // animationSteps: 60,
           animationEasing: "easeOutIn",
           showScale: true,
           scaleOverride: false,
@@ -297,31 +297,41 @@ $(document).ready(function loadDataChart(){
       var myBarChart = new Chart(barCtx).Bar(barData, barOptions);
       },
   })
-});
+}
 
-$(document).ready( function dataload() {
+function dataload() {
   $.ajax({
     url : '/dataload',
     type : 'GET',
     dataType : 'json',
     success : function(data){
       // for(let i=0; i<data.length; i++){
-        $('#data1').append("Nomor STS : "+data[0].NOSTS+" Nilai : "+dollarUS.format(data[0].NILAI));
-        $('#dataw1').append("Pada : "+data[0].TGLSTS);
-        $('#data2').append("Nomor STS : "+data[1].NOSTS+" Nilai : "+dollarUS.format(data[1].NILAI));
-        $('#dataw2').append("Pada : "+data[1].TGLSTS);
-        $('#data3').append("Nomor STS : "+data[2].NOSTS+" Nilai : "+dollarUS.format(data[2].NILAI));
-        $('#dataw3').append("Pada : "+data[2].TGLSTS);
-        $('#data4').append("Nomor STS : "+data[3].NOSTS+" Nilai : "+dollarUS.format(data[3].NILAI));
-        $('#dataw4').append("Pada : "+data[3].TGLSTS);
-        $('#data5').append("Nomor STS : "+data[4].NOSTS+" Nilai : "+dollarUS.format(data[4].NILAI));
-        $('#dataw5').append("Pada : "+data[4].TGLSTS);
+         document.getElementById("data1").innerHTML =("Nomor STS : "+data[0].NOSTS+" Nilai : "+dollarUS.format(data[0].NILAI));
+         document.getElementById("dataw1").innerHTML =("Pada : "+data[0].TGLSTS);
+         document.getElementById("data2").innerHTML =("Nomor STS : "+data[1].NOSTS+" Nilai : "+dollarUS.format(data[1].NILAI));
+         document.getElementById("dataw2").innerHTML =("Pada : "+data[1].TGLSTS);
+         document.getElementById("data3").innerHTML =("Nomor STS : "+data[2].NOSTS+" Nilai : "+dollarUS.format(data[2].NILAI));
+         document.getElementById("dataw3").innerHTML =("Pada : "+data[2].TGLSTS);
+         document.getElementById("data4").innerHTML =("Nomor STS : "+data[3].NOSTS+" Nilai : "+dollarUS.format(data[3].NILAI));
+         document.getElementById("dataw4").innerHTML =("Pada : "+data[3].TGLSTS);
+         document.getElementById("data5").innerHTML =("Nomor STS : "+data[4].NOSTS+" Nilai : "+dollarUS.format(data[4].NILAI));
+         document.getElementById("dataw5").innerHTML =("Pada : "+data[4].TGLSTS);
       // }
     }
   })
-} );
-setInterval(loadSum2, 5000);
-setInterval(loadSum1, 5000);  
+}
+
+loadSum1();
+loadSum2();
+dataload();
+loadDataChart();
+setInterval(() => {
+  loadSum1();
+  loadSum2();
+  dataload();
+  loadDataChart();
+}, 5000);
+ 
 // var tes = document.getElementById("sum1")
 // tes.append("10")
 // $('#sum1').append(10)
