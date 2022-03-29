@@ -181,14 +181,14 @@ viho - Premium Admin Template
 
 <script>
 
-  
+
 
 let dollarUS = Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "IDR",
 });
 
-$(document).ready(function loadSum1(){
+function loadSum1(){
   $.ajax({
       url :'/sum1',
       type : 'GET',
@@ -197,21 +197,23 @@ $(document).ready(function loadSum1(){
         // console.log(data);
         $('#sum1').append(dollarUS.format(data));
         $('#1sum').append(dollarUS.format(data));
+        document.getElementById("sum1").innerHTML = (dollarUS.format(data));
+        document.getElementById("1sum").innerHTML = (dollarUS.format(data));
       },
   })
-});
+}
 
-$(document).ready(function loadSum2(){
+function loadSum2(){
   $.ajax({
       url :'/sum2',
       type : 'GET',
       dataType : 'json',
       success : function(data){
         // console.log(data);
-        $('#sum2').append(dollarUS.format(data));
+        document.getElementById("sum2").innerHTML = (dollarUS.format(data));
       },
   })
-});
+}
 
 var datachart =[]
 $(document).ready(function loadDataChart(){
@@ -318,7 +320,8 @@ $(document).ready( function dataload() {
     }
   })
 } );
-
+setInterval(loadSum2, 5000);
+setInterval(loadSum1, 5000);  
 // var tes = document.getElementById("sum1")
 // tes.append("10")
 // $('#sum1').append(10)
