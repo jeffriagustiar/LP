@@ -30,7 +30,7 @@ viho - Premium Admin Template
                 <i class="fa-solid fa-money-bill-transfer"></i>
                 <i class="fa fa-money"></i>
               </div>
-              <h5 id="sum1"></h5> {{-- sini 8,50,49 --}}
+              <h5 id="sum1" class="counter"></h5> {{-- sini 8,50,49 --}}
               <p>Our Annual Income</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"><i class="toprightarrow-primary fa fa-arrow-up me-2"></i>95.54% </a>
               <div class="parrten">
                 <i class="fa fa-money"></i>
@@ -44,7 +44,7 @@ viho - Premium Admin Template
               <div class="round-box">
                 <i class="fa fa-money"></i>
               </div>
-              <h5 id="sum2"></h5>{{-- sini --}}
+              <h5 id="sum2" class="counter"></h5>{{-- sini --}}
               <p>our Annual losses</p><a class="btn-arrow arrow-secondary" href="javascript:void(0)"><i class="toprightarrow-secondary fa fa-arrow-up me-2"></i>90.54% </a>
               <div class="parrten">
                 <i class="fa fa-money"></i>

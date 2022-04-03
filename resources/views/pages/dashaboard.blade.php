@@ -1,4 +1,4 @@
-@extends('layouts.appa')
+@extends('layouts.appu')
 
 @section('title')
 - Premium Admin Template
