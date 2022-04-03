@@ -4,6 +4,12 @@
     List Data
 @endsection
 
+@push('before-style')
+  <!-- Plugins css start-->
+  <link rel="stylesheet" type="text/css" href="{{ url('/assets/css/datatables.css') }}">
+  <!-- Plugins css Ends-->
+@endpush
+
 @section('conten')
     <!-- Ajax data source array start-->
               <div class="col-sm-12">
@@ -20,8 +26,8 @@
                             <th>Position</th>
                             <th>Office</th>
                             <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Action</th>
+                            <th>tes</th>
                           </tr>
                         </thead>
                         {{-- <tfoot>
@@ -48,20 +54,17 @@
 
     <script>
         $('#ajax-data-object').DataTable({
-            "ajax": "../assets/ajax/object.txt",
-            "columns": [{
-                "data": "name"
-            }, {
-                "data": "position"
-            }, {
-                "data": "office"
-            }, {
-                "data": "extn"
-            }, {
-                "data": "start_date"
-            }, {
-                "data": "salary"
-            }]
+          processing: true,
+          serverSide: true,
+          ajax: '/dashaboard/getdata',
+          columns: [
+            { data: 'id' }, 
+            { data: 'nilai' }, 
+            { data: 'created_at' }, 
+            { data: 'updated_at' },
+            { data: 'action'},
+            { data: 'tes'}
+          ]
         });
     </script>
 @endpush
