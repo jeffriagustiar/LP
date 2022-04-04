@@ -19,6 +19,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::get('/dashaboard', 'DashaboardController@index')->name('dashaboard');
     Route::get('/dashaboard/listdata', 'DataController@index')->name('list-data');
     Route::get('/dashaboard/getdata', 'DataController@getData')->name('get-data');
+    Route::DELETE('/dashaboard/deletedata/{id}', 'DataController@deleteData')->name('delete-data');
 });
 
 Route::get('/', 'LandingPageController@index')->name('landing');

@@ -13,33 +13,14 @@
     <script src="{{ url('/assets/js/chart/chartist/chartist-plugin-tooltip.js') }}"></script>
     <script src="{{ url('/assets/js/chart/knob/knob.min.js') }}"></script>
     <script src="{{ url('/assets/js/chart/knob/knob-chart.js') }}"></script> --}}
-    <script src="{{ url('/assets/js/chart/apex-chart/apex-chart.js') }}"></script>
-    <script src="{{ url('/assets/js/chart/apex-chart/stock-prices.js') }}"></script>
-    <script src="{{ url('/assets/js/prism/prism.min.js') }}"></script>
-    <script src="{{ url('/assets/js/clipboard/clipboard.min.js') }}"></script>
-    <script src="{{ url('/assets/js/counter/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ url('/assets/js/counter/jquery.counterup.min.js') }}"></script>
-    <script src="{{ url('/assets/js/counter/counter-custom.js') }}"></script>
-    <script src="{{ url('/assets/js/custom-card/custom-card.js') }}"></script>
-    <script src="{{ url('/assets/js/notify/bootstrap-notify.min.js') }}"></script>
-    <script src="{{ url('/assets/js/vector-map/jquery-jvectormap-2.0.2.min.js') }}"></script>
-    <script src="{{ url('/assets/js/vector-map/map/jquery-jvectormap-world-mill-en.js') }}"></script>
-    <script src="{{ url('/assets/js/vector-map/map/jquery-jvectormap-us-aea-en.js') }}"></script>
-    <script src="{{ url('/assets/js/vector-map/map/jquery-jvectormap-uk-mill-en.js') }}"></script>
-    <script src="{{ url('/assets/js/vector-map/map/jquery-jvectormap-au-mill.js') }}"></script>
-    <script src="{{ url('/assets/js/vector-map/map/jquery-jvectormap-chicago-mill-en.js') }}"></script>
-    <script src="{{ url('/assets/js/vector-map/map/jquery-jvectormap-in-mill.js') }}"></script>
-    <script src="{{ url('/assets/js/vector-map/map/jquery-jvectormap-asia-mill.js') }}"></script>
-    <script src="{{ url('/assets/js/dashboard/default.js') }}"></script>
-    {{-- <script src="{{ url('/assets/js/notify/index.js') }}"></script> --}}
-    <script src="{{ url('/assets/js/datepicker/date-picker/datepicker.js') }}"></script>
-    <script src="{{ url('/assets/js/datepicker/date-picker/datepicker.en.js') }}"></script>
-    <script src="{{ url('/assets/js/datepicker/date-picker/datepicker.custom.js') }}"></script>
+    
 
-    {{-- Chart --}}
-    <script src="{{ url('/assets/js/chart/chartjs/chart.min.js') }}"></script>
-    <script src="{{ url('/assets/js/chart/chartjs/chart.custom.js') }}"></script>
     <!-- Plugins JS Ends-->
+
+    {{-- Notif --}}
+    <script src="{{ url('/assets/js/notify/bootstrap-notify.min.js') }}"></script>
+    {{-- End Notif --}}
+    
     
     <!-- Theme js-->
     <script src="{{ url('/assets/js/script.js') }}"></script>
