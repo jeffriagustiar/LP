@@ -55,7 +55,20 @@ class DataController extends Controller
 
         return response()->json([
             'title' => 'Hapus Data',
-            'success' => 'Succes hapus data'
+            'success' => 'Success hapus data'
         ]);
     }
+
+    public function addData(Request $request)
+    {
+        $data = $request->all();
+
+        LandingModel::create($data);
+
+        return response()->json([
+            'title' => 'Add Data',
+            'success' => 'Success tambah data'
+        ]);
+    }
+
 }

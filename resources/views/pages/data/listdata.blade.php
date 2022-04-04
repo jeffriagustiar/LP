@@ -49,7 +49,7 @@
               </div>
               <!-- Ajax data source array end-->
 
-              <div class="modal fade data-add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+              {{-- <div class="modal fade data-add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -58,47 +58,79 @@
                           </div>
                           <div class="modal-body">
                             
-                            <form class="form-horizontal">
-                              <fieldset>
+                            <form class="form-horizontal" name="data-add"> --}}
+                              {{-- <fieldset> --}}
 
 
                               <!-- Text input-->
-                              <div class="mb-3 row">
+                              {{-- <div class="mb-3 row">
                                 <label class="col-lg-12 form-label " for="textinput">Text Input</label>  
                                 <div class="col-lg-12">
-                                <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control btn-square input-md">
+                                <input id="nilai" name="nilai" type="text" placeholder="Nilai" class="form-control btn-square input-md">
                                 </div>
-                              </div>
+                              </div> --}}
 
                               <!-- Appended Input-->
-                              <div class="mb-3 row">
+                              {{-- <div class="mb-3 row">
                                 <label class="col-lg-12 form-label " for="appendedtext">Appended Text</label>
                                 <div class="col-lg-12">
                                   <div class="input-group">
-                                    <input id="appendedtext" name="appendedtext" class="form-control btn-square" placeholder="placeholder" type="text">
+                                    <input id="appendedtext" name="appendedtext" class="form-control btn-square" placeholder="placeholder" type="text"> --}}
                                     {{-- <span class="input-group-text btn btn-primary btn-right">append</span> --}}
-                                    <button class="input-group-text btn btn-primary btn-right" type="button" data-bs-toggle="modal" data-bs-target=".data-list">append</button>
+                                    {{-- <button class="input-group-text btn btn-primary btn-right" type="button" data-bs-toggle="modal" data-bs-target=".data-list">append</button>
                                   </div>
                                 </div>
-                              </div>
+                              </div> --}}
 
                               <!-- Button (Double) -->
-                              <div class="mb-3 row mb-0">
-                                <label class="col-lg-12 form-label " for="button1id">Double Button</label>
-                                <div class="col-md-9">
-                                  <button id="button1id" name="button1id" class="btn btn-success">Good Button</button>
+                              {{-- <div class="mb-3 row mb-0"> --}}
+                                {{-- <label class="col-lg-12 form-label " for="button1id">Double Button</label> --}}
+                                {{-- <div class="col-md-9">
+                                  <button type="submit" id="btn-save" name="btn-save" class="btn btn-success">Save</button>
                                   <button id="button2id" name="button2id" class="btn btn-warning" type="reset">Reset Button</button>
                                 </div>
-                              </div>
+                              </div> --}}
 
-                              </fieldset>
-                            </form>
+                              {{-- </fieldset> --}}
+                            {{-- </form>
 
 
                           </div>
                         </div>
                       </div>
-                </div>
+                </div> --}}
+
+
+                <div class="modal data-add" id="ajaxModel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h4 class="modal-title" id="modelHeading"></h4>
+                          </div>
+                          <div class="modal-body">
+                              <form id="CustomerForm" name="CustomerForm" class="form-horizontal">
+                                 <input type="hidden" name="Customer_id" id="Customer_id">
+                                  <div class="form-group">
+                                      <label for="name" class="col-sm-2 control-label">Name</label>
+                                      <div class="col-sm-12">
+                                          <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="" maxlength="50" >
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="col-sm-2 control-label">Details</label>
+                                      <div class="col-sm-12">
+                                          <textarea id="detail" name="detail"  placeholder="Enter Details" class="form-control"></textarea>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-offset-2 col-sm-10">
+                                   <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
+                                   </button>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
 
               <div class="modal fade data-list" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -125,10 +157,6 @@
     {{-- <script src="{{ url('/assets/js/datatable/datatables/datatable.custom.js') }}"></script> --}}
 
     <script>
-
-      function notif(){
-          
-        }
       
       $(function () {
 
@@ -188,6 +216,29 @@
                 console.log('Error:', data);
             }
         });
+
+        $('#btn-save').click(function (e) {
+          console.log('tes')
+          // e.preventDefault();
+          // $(this).html('Sending..');
+          // $.ajax({
+          //   data: $('#data-add').serialize(),
+          //   url: '/dashaboard/adddata',
+          //   type: 'POST',
+          //   dataType: 'json',
+          //   success: function (data) {
+          //       // $('#data-add').trigger("reset");
+          //       // $('#ajaxModel').modal('hide');
+          //       console.log(data);
+          //       // table.draw();
+          //   },
+          //   error: function (data) {
+          //       console.log('Error:', data);
+          //       // $('#btn-save').html('Save Changes');
+          //   }
+          // });
+        });
+
     });
       });
     </script>
