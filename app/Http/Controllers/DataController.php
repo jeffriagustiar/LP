@@ -61,7 +61,9 @@ class DataController extends Controller
 
     public function addData(Request $request)
     {
-        $data = $request->all();
+        $data = [
+            'nilai' => $request->nilai
+        ];
 
         LandingModel::create($data);
 
