@@ -25,26 +25,26 @@ class DataController extends Controller
         return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($item){
-                    // $a = '<div class="btn-group">
-                    //             <form action="'.$item->id.'" method="POST">
-                    //                 '. method_field('delete') . csrf_field() .'
-                    //                 <button type="submit" class="btn btn-block btn-danger">
-                    //                     Delete
-                    //                 </button>
-                    //             </form>
-                    //       </div>';
                     $a = ' <a 
                                 href="javascript:void(0)" 
                                 data-toggle="tooltip"  
                                 data-id="'.$item->id.'" 
                                 data-original-title="Delete" 
-                                class="btn btn-danger btn-sm deleteData"> Delete </a>';
+                                class="btn btn-danger btn-sm deleteData"> Delete 
+                            </a>';
                     return $a;
                 })
-                ->addColumn('tes', function($i){
-                    return 'tes';
+                ->addColumn('select', function($i){
+                    $a = ' <a 
+                                href="javascript:void(0)" 
+                                data-toggle="tooltip"  
+                                data-id="'.$i->id.'" 
+                                data-original-title="Select" 
+                                class="btn btn-primary btn-sm selectData"> Select 
+                            </a>';
+                    return $a;
                 })
-                ->rawColumns(['action','tes'])
+                ->rawColumns(['action','select'])
                 ->make(true);
     }
 

@@ -30,7 +30,6 @@
                             <th>Office</th>
                             <th>Age</th>
                             <th>Action</th>
-                            <th>tes</th>
                           </tr>
                         </thead>
                         {{-- <tfoot>
@@ -59,7 +58,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="postForm" name="postForm" class="form-horizontal">
+        <form id="postForm" name="postForm" class="form-horizontal col-sm-4" >
           
           <input type="hidden" name="id" id="id">
           
@@ -78,7 +77,7 @@
               <div class="input-group">
                 <input id="appendedtext" name="appendedtext" class="form-control btn-square" placeholder="placeholder" type="text">
                 {{-- <span class="input-group-text btn btn-primary btn-right">append</span> --}}
-                <button class="input-group-text btn btn-primary btn-right" type="button" data-bs-toggle="modal" data-bs-target=".data-list">append</button>
+                <a href="javascript:void(0)" class="input-group-text btn btn-primary btn-right" type="button" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</a>
               </div>
             </div>
           </div>
@@ -103,35 +102,26 @@
 
 
 <div class="modal fade" id="listData" tabindex="-1" aria-labelledby="listData" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="listData">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="postForm" name="postForm" class="form-horizontal">
 
-                   <input type="hidden" name="id" id="id">
-                    <div class="form-group">
-                        <label for="title" class="col-sm-2 control-label">Title</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="nilai" name="nilai" placeholder="Enter Name" value="" >
-                        </div>
-                    </div>
-     
-                    {{-- <div class="form-group">
-                        <label class="col-sm-2 control-label">Description</label>
-                        <div class="col-sm-12">
-                            <textarea id="description" name="description"  placeholder="Enter Description" class="form-control"></textarea>
-                        </div>
-                    </div> --}}
-      
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="savedata" value="create">Save Post
-                    </div>
-        </form>
+        <table class="datatables" id="tableListData">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Office</th>
+              <th>Age</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+        </table>
+
       </div>
       
     </div>
@@ -166,8 +156,7 @@
             { data: 'nilai' }, 
             { data: 'created_at' }, 
             { data: 'updated_at' },
-            { data: 'action'},
-            { data: 'tes'}
+            { data: 'action'}
           ]
         });
 
@@ -179,6 +168,8 @@
           $('#addData').modal('show');
         });
 
+        
+        
         $('#savedata').click(function (e) {
           // console.log('tes')
           e.preventDefault();
@@ -228,45 +219,69 @@
           });
         });
 
-        $('body').on('click', '.deleteData', function () {
-        var Customer_id = $(this).data("id");
-        // confirm("Are You sure want to delete !");
-        $.ajax({
-            type: "DELETE",
-            url: '/dashaboard/deletedata/'+Customer_id,
-            success: function (data) {
-                $.notify({
-                    title: data.title,
-                    message: data.success
-                },
-                {
-                    type:'primary',
-                    allow_dismiss:true,
-                    newest_on_top:true ,
-                    mouse_over:false,
-                    showProgressbar:false,
-                    spacing:25,
-                    timer:2000,
-                    placement:{
-                      from:'top',
-                      align:'right'
-                    },
-                    offset:{
-                      x:30,
-                      y:30
-                    },
-                    delay:1000 ,
-                    z_index:10000,
-                });
-                table.draw();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
+        $('#dataList').click(function () {
+          $('#listData').modal('show');
         });
 
+        var table2 = $('#tableListData').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: '/dashaboard/getdata',
+          columns: [
+            { data: 'id' }, 
+            { data: 'nilai' }, 
+            { data: 'created_at' }, 
+            { data: 'updated_at' },
+            { data: 'select'}
+          ]
+        });
 
-    });
+        // $('body').on('click', '.selectData', function () {
+        //   var select_id = $(this).data("id");
+        //   console.log(select_id)
+        //   var aa = document.getElementById("nilai1");
+        //   // $('#tes').append(select_id);
+        //   aa.value = select_id;
+        //   $('#listData').modal('hide');
+        // });
+
+        $('body').on('click', '.deleteData', function () {
+          var Customer_id = $(this).data("id");
+          // confirm("Are You sure want to delete !");
+          $.ajax({
+              type: "DELETE",
+              url: '/dashaboard/deletedata/'+Customer_id,
+              success: function (data) {
+                  $.notify({
+                      title: data.title,
+                      message: data.success
+                  },
+                  {
+                      type:'primary',
+                      allow_dismiss:true,
+                      newest_on_top:true ,
+                      mouse_over:false,
+                      showProgressbar:false,
+                      spacing:25,
+                      timer:2000,
+                      placement:{
+                        from:'top',
+                        align:'right'
+                      },
+                      offset:{
+                        x:30,
+                        y:30
+                      },
+                      delay:1000 ,
+                      z_index:10000,
+                  });
+                  table.draw();
+              },
+              error: function (data) {
+                  console.log('Error:', data);
+              }
+          });
+        });
       });
     </script>
 @endpush
