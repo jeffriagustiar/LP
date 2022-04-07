@@ -129,6 +129,35 @@
 </div>
 
 
+<div class="modal fade" id="lookData" tabindex="-1" aria-labelledby="lookData" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="lookData">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body3">
+
+      <input type="text" name="id" id="id">
+
+        <table class="datatables" id="tableLookData">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Office</th>
+              <th>Age</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 @endsection
 
@@ -138,7 +167,7 @@
     {{-- <script src="{{ url('/assets/js/datatable/datatables/datatable.custom.js') }}"></script> --}}
 
     <script>
-      
+      let a;
       $(function () {
 
         $.ajaxSetup({
@@ -245,13 +274,38 @@
           $('#addData').find('.modal-body #appendedtext').val(select_id2);
           $('#listData').modal('hide');
         });
+        
+        
+        $('body').on('click', '.DataLook', function () {
+          var id = $(this).data("id");
+          // var select_id2 = $(this).data("p2");
+          $('#lookData').find('.modal-body3 #id').val(id);
+          id2 = $(this).data('id');
+          // console.log(id)
+          $('#lookData').modal('show');
+        });
+
+        var id2;
+        var table3 = $('#tableLookData').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: '/dashaboard/lookdata/'+($(this).data("id")),
+          columns: [
+            { data: 'id' }, 
+            { data: 'nilai' }, 
+            { data: 'created_at' }, 
+            { data: 'updated_at' },
+            { data: 'select'}
+          ]
+        });
+
 
         $('body').on('click', '.deleteData', function () {
           var Customer_id = $(this).data("id");
           // confirm("Are You sure want to delete !");
           $.ajax({
               type: "DELETE",
-              url: '/dashaboard/deletedata/'+Customer_id,
+              url: '/dashaboard/deletedata/'+44,
               success: function (data) {
                   $.notify({
                       title: data.title,

@@ -31,6 +31,13 @@ class DataController extends Controller
                                 data-id="'.$item->id.'" 
                                 data-original-title="Delete" 
                                 class="btn btn-danger btn-sm deleteData"> Delete 
+                            </a>
+                            <a 
+                                href="javascript:void(0)" 
+                                data-toggle="tooltip"  
+                                data-id="'.$item->id.'" 
+                                data-original-title="Look" 
+                                class="btn btn-warning btn-sm DataLook"> Look 
                             </a>';
                     return $a;
                 })
@@ -72,6 +79,24 @@ class DataController extends Controller
             'title' => 'Add Data',
             'success' => 'Success tambah data'
         ]);
+    }
+
+    public function lookData($id)
+    {
+        $data = LandingModel::where('id',$id);
+
+        return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($item){
+                    $a = $item->id;
+                    return $a;
+                })
+                ->addColumn('select', function($i){
+                    $a = $i->id;
+                    return $a;
+                })
+                ->rawColumns(['action','select'])
+                ->make(true);
     }
 
 }
