@@ -39,6 +39,7 @@ class DataController extends Controller
                                 href="javascript:void(0)" 
                                 data-toggle="tooltip"  
                                 data-id="'.$i->id.'" 
+                                data-p2="'.$i->nilai.'"
                                 data-original-title="Select" 
                                 class="btn btn-primary btn-sm selectData"> Select 
                             </a>';

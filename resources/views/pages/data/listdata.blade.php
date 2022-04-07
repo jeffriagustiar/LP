@@ -58,7 +58,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="postForm" name="postForm" class="form-horizontal col-sm-4" >
+        <form id="postForm" name="postForm" class="form-horizontal" >
           
           <input type="hidden" name="id" id="id">
           
@@ -67,6 +67,7 @@
             <div class="col-lg-12">
               <div class="input-group">
                 <input type="text" class="form-control" id="nilai" name="nilai" placeholder="Enter Name" value="" >
+                {{-- <div class="div" id="tes123"></div> --}}
               </div>
             </div>
           </div>
@@ -76,8 +77,8 @@
             <div class="col-lg-12">
               <div class="input-group">
                 <input id="appendedtext" name="appendedtext" class="form-control btn-square" placeholder="placeholder" type="text">
-                {{-- <span class="input-group-text btn btn-primary btn-right">append</span> --}}
-                <a href="javascript:void(0)" class="input-group-text btn btn-primary btn-right" type="button" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</a>
+                <span class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</span>
+                {{-- <button href="javascript:void(0)" class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</button> --}}
               </div>
             </div>
           </div>
@@ -108,7 +109,7 @@
         <h5 class="modal-title" id="listData">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body2">
 
         <table class="datatables" id="tableListData">
           <thead>
@@ -123,7 +124,6 @@
         </table>
 
       </div>
-      
     </div>
   </div>
 </div>
@@ -173,7 +173,7 @@
         $('#savedata').click(function (e) {
           // console.log('tes')
           e.preventDefault();
-          $(this).html('Sending..');
+          $(this).html('Save');
       
           $.ajax({
             data: $('#postForm').serialize(),
@@ -236,14 +236,15 @@
           ]
         });
 
-        // $('body').on('click', '.selectData', function () {
-        //   var select_id = $(this).data("id");
-        //   console.log(select_id)
-        //   var aa = document.getElementById("nilai1");
-        //   // $('#tes').append(select_id);
-        //   aa.value = select_id;
-        //   $('#listData').modal('hide');
-        // });
+        $('body').on('click', '.selectData', function () {
+          var select_id = $(this).data("id");
+          var select_id2 = $(this).data("p2");
+          console.log(select_id)
+          // $('#addData').find('.modal-body #tes123').append(select_id);
+          $('#addData').find('.modal-body #nilai').val(select_id);
+          $('#addData').find('.modal-body #appendedtext').val(select_id2);
+          $('#listData').modal('hide');
+        });
 
         $('body').on('click', '.deleteData', function () {
           var Customer_id = $(this).data("id");
