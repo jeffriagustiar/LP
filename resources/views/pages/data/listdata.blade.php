@@ -277,27 +277,29 @@
         
         
         $('body').on('click', '.DataLook', function () {
+          var id = '';
           var id = $(this).data("id");
           // var select_id2 = $(this).data("p2");
           $('#lookData').find('.modal-body3 #id').val(id);
-          id2 = $(this).data('id');
           // console.log(id)
           $('#lookData').modal('show');
-        });
 
-        var id2;
-        var table3 = $('#tableLookData').DataTable({
-          processing: true,
-          serverSide: true,
-          ajax: '/dashaboard/lookdata/'+($(this).data("id")),
-          columns: [
-            { data: 'id' }, 
-            { data: 'nilai' }, 
-            { data: 'created_at' }, 
-            { data: 'updated_at' },
-            { data: 'select'}
-          ]
+          var table3 = $('#tableLookData').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            ajax: '/dashaboard/lookdata/'+id,
+            columns: [
+              { data: 'id' }, 
+              { data: 'nilai' }, 
+              { data: 'created_at' }, 
+              { data: 'updated_at' },
+              { data: 'select'}
+            ]
+          });
+
         });
+        
 
 
         $('body').on('click', '.deleteData', function () {
