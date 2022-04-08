@@ -305,7 +305,7 @@
           // confirm("Are You sure want to delete !");
           $.ajax({
               type: "DELETE",
-              url: '/dashaboard/deletedata/'+44,
+              url: '/dashaboard/deletedata/'+Customer_id,
               success: function (data) {
                   $.notify({
                       title: data.title,
