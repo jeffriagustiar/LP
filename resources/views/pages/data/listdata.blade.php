@@ -181,10 +181,10 @@
           serverSide: true,
           ajax: '/dashaboard/getdata',
           columns: [
-            { data: 'id' }, 
-            { data: 'nilai' }, 
-            { data: 'created_at' }, 
-            { data: 'updated_at' },
+            { data: 'NOSP2D' }, 
+            { data: 'NOSPM' }, 
+            { data: 'KEPERLUAN' }, 
+            { data: 'TGLSP2D' },
             { data: 'action'}
           ]
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Sp2diModel;
 use App\Model\LandingModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -20,7 +21,11 @@ class DataController extends Controller
 
     public function getData()
     {
-        $data = LandingModel::all();
+        // $data = LandingModel::all();
+        // KDSTATUS = 21 GU
+        $data = Sp2diModel::where('KDSTATUS','24');
+                            // ->orderBy('NOSP2D', 'desc');
+                            // ->get();
 
         return DataTables::of($data)
                 ->addIndexColumn()
@@ -28,14 +33,14 @@ class DataController extends Controller
                     $a = ' <a 
                                 href="javascript:void(0)" 
                                 data-toggle="tooltip"  
-                                data-id="'.$item->id.'" 
+                                data-id="'.$item->NOSP2D.'" 
                                 data-original-title="Delete" 
                                 class="btn btn-danger btn-sm deleteData"> Delete 
                             </a>
                             <a 
                                 href="javascript:void(0)" 
                                 data-toggle="tooltip"  
-                                data-id="'.$item->id.'" 
+                                data-id="'.$item->NOSP2D.'" 
                                 data-original-title="Look" 
                                 class="btn btn-warning btn-sm DataLook"> Look 
                             </a>';

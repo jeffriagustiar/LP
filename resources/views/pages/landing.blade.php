@@ -181,159 +181,157 @@ viho - Premium Admin Template
 
 <script>
 
+let dollarUS = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "IDR",
+});
+
+function loadSum1(){
+  $.ajax({
+      url :'/sum1',
+      type : 'GET',
+      dataType : 'json',
+      success : function(data){
+        // console.log(data);
+        $('#sum1').append(dollarUS.format(data));
+        $('#1sum').append(dollarUS.format(data));
+        document.getElementById("sum1").innerHTML = (dollarUS.format(data));
+        document.getElementById("1sum").innerHTML = (dollarUS.format(data));
+      },
+  })
+}
+
+function loadSum2(){
+  $.ajax({
+      url :'/sum2',
+      type : 'GET',
+      dataType : 'json',
+      success : function(data){
+        // console.log(data);
+        document.getElementById("sum2").innerHTML = (dollarUS.format(data));
+      },
+  })
+}
 
 
-// let dollarUS = Intl.NumberFormat("en-US", {
-//     style: "currency",
-//     currency: "IDR",
-// });
-
-// function loadSum1(){
-//   $.ajax({
-//       url :'/sum1',
-//       type : 'GET',
-//       dataType : 'json',
-//       success : function(data){
-//         // console.log(data);
-//         $('#sum1').append(dollarUS.format(data));
-//         $('#1sum').append(dollarUS.format(data));
-//         document.getElementById("sum1").innerHTML = (dollarUS.format(data));
-//         document.getElementById("1sum").innerHTML = (dollarUS.format(data));
-//       },
-//   })
-// }
-
-// function loadSum2(){
-//   $.ajax({
-//       url :'/sum2',
-//       type : 'GET',
-//       dataType : 'json',
-//       success : function(data){
-//         // console.log(data);
-//         document.getElementById("sum2").innerHTML = (dollarUS.format(data));
-//       },
-//   })
-// }
-
-
-// function loadDataChart(){
-//   $.ajax({
-//       url :'/datachart',
-//       type : 'GET',
-//       dataType : 'json',
-//       success : function(data){
+function loadDataChart(){
+  $.ajax({
+      url :'/datachart',
+      type : 'GET',
+      dataType : 'json',
+      success : function(data){
         
-//       var datachart =[]
-//         for(let i = 0; i<data.length; i++){
-//           datachart.push(data[i])
-//         }
-//         Chart.defaults.global = {
-//           animation: true,
-//           // animationSteps: 60,
-//           animationEasing: "easeOutIn",
-//           showScale: true,
-//           scaleOverride: false,
-//           scaleSteps: null,
-//           scaleStepWidth: null,
-//           scaleStartValue: null,
-//           scaleLineColor: "#eeeeee",
-//           scaleLineWidth: 1,
-//           scaleShowLabels: true,
-//           scaleLabel: "<%=value%>",
-//           scaleIntegersOnly: true,
-//           scaleBeginAtZero: false,
-//           scaleFontSize: 12,
-//           scaleFontStyle: "normal",
-//           scaleFontColor: "#717171",
-//           responsive: true,
-//           maintainAspectRatio: true,
-//           showTooltips: true,
-//           multiTooltipTemplate: "<%= value %>",
-//           tooltipFillColor: "#333333",
-//           tooltipEvents: ["mousemove", "touchstart", "touchmove"],
-//           tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
-//           tooltipFontSize: 14,
-//           tooltipFontStyle: "normal",
-//           tooltipFontColor: "#fff",
-//           tooltipTitleFontSize: 16,
-//           TitleFontStyle : "Raleway",
-//           tooltipTitleFontStyle: "bold",
-//           tooltipTitleFontColor: "#ffffff",
-//           tooltipYPadding: 10,
-//           tooltipXPadding: 10,
-//           tooltipCaretSize: 8,
-//           tooltipCornerRadius: 6,
-//           tooltipXOffset: 5,
-//           onAnimationProgress: function() {},
-//           onAnimationComplete: function() {}
-//       };
-//       var barData = {
-//                       labels: ["January", "February", "March", "April", "May", "June", "July","Agustus","September","Oktober","November","Desember"],
-//                       datasets: [
-//                         {
-//                           label: "My First dataset",
-//                           fillColor: "rgba(36, 105, 92, 0.4)",
-//                           strokeColor: vihoAdminConfig.primary,
-//                           highlightFill: "rgba(36, 105, 92, 0.6)",
-//                           highlightStroke: vihoAdminConfig.primary,
-//                           data: datachart
-//                         }, 
-//                       ]
-//       };
+      var datachart =[]
+        for(let i = 0; i<data.length; i++){
+          datachart.push(data[i])
+        }
+        Chart.defaults.global = {
+          animation: true,
+          // animationSteps: 60,
+          animationEasing: "easeOutIn",
+          showScale: true,
+          scaleOverride: false,
+          scaleSteps: null,
+          scaleStepWidth: null,
+          scaleStartValue: null,
+          scaleLineColor: "#eeeeee",
+          scaleLineWidth: 1,
+          scaleShowLabels: true,
+          scaleLabel: "<%=value%>",
+          scaleIntegersOnly: true,
+          scaleBeginAtZero: false,
+          scaleFontSize: 12,
+          scaleFontStyle: "normal",
+          scaleFontColor: "#717171",
+          responsive: true,
+          maintainAspectRatio: true,
+          showTooltips: true,
+          multiTooltipTemplate: "<%= value %>",
+          tooltipFillColor: "#333333",
+          tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+          tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+          tooltipFontSize: 14,
+          tooltipFontStyle: "normal",
+          tooltipFontColor: "#fff",
+          tooltipTitleFontSize: 16,
+          TitleFontStyle : "Raleway",
+          tooltipTitleFontStyle: "bold",
+          tooltipTitleFontColor: "#ffffff",
+          tooltipYPadding: 10,
+          tooltipXPadding: 10,
+          tooltipCaretSize: 8,
+          tooltipCornerRadius: 6,
+          tooltipXOffset: 5,
+          onAnimationProgress: function() {},
+          onAnimationComplete: function() {}
+      };
+      var barData = {
+                      labels: ["January", "February", "March", "April", "May", "June", "July","Agustus","September","Oktober","November","Desember"],
+                      datasets: [
+                        {
+                          label: "My First dataset",
+                          fillColor: "rgba(36, 105, 92, 0.4)",
+                          strokeColor: vihoAdminConfig.primary,
+                          highlightFill: "rgba(36, 105, 92, 0.6)",
+                          highlightStroke: vihoAdminConfig.primary,
+                          data: datachart
+                        }, 
+                      ]
+      };
 
-//       var barOptions = {
-//         scaleBeginAtZero: true,
-//         scaleShowGridLines: true,
-//         scaleGridLineColor: "rgba(0,0,0,0.1)",
-//         scaleGridLineWidth: 1,
-//         scaleShowHorizontalLines: true,
-//         scaleShowVerticalLines: true,
-//         barShowStroke: true,
-//         barStrokeWidth: 2,
-//         barValueSpacing: 5,
-//         barDatasetSpacing: 1,
-//       };
-//       var barCtx = document.getElementById("myBarGraph").getContext("2d");
-//       var myBarChart = new Chart(barCtx).Bar(barData, barOptions);
-//       },
-//   })
-// }
+      var barOptions = {
+        scaleBeginAtZero: true,
+        scaleShowGridLines: true,
+        scaleGridLineColor: "rgba(0,0,0,0.1)",
+        scaleGridLineWidth: 1,
+        scaleShowHorizontalLines: true,
+        scaleShowVerticalLines: true,
+        barShowStroke: true,
+        barStrokeWidth: 2,
+        barValueSpacing: 5,
+        barDatasetSpacing: 1,
+      };
+      var barCtx = document.getElementById("myBarGraph").getContext("2d");
+      var myBarChart = new Chart(barCtx).Bar(barData, barOptions);
+      },
+  })
+}
 
-// function dataload() {
-//   $.ajax({
-//     url : '/dataload',
-//     type : 'GET',
-//     dataType : 'json',
-//     success : function(data){
-//       // for(let i=0; i<data.length; i++){
-//          document.getElementById("data1").innerHTML =("Nomor STS : "+data[0].NOSTS+" Nilai : "+dollarUS.format(data[0].NILAI));
-//          document.getElementById("dataw1").innerHTML =("Pada : "+data[0].TGLSTS);
-//          document.getElementById("data2").innerHTML =("Nomor STS : "+data[1].NOSTS+" Nilai : "+dollarUS.format(data[1].NILAI));
-//          document.getElementById("dataw2").innerHTML =("Pada : "+data[1].TGLSTS);
-//          document.getElementById("data3").innerHTML =("Nomor STS : "+data[2].NOSTS+" Nilai : "+dollarUS.format(data[2].NILAI));
-//          document.getElementById("dataw3").innerHTML =("Pada : "+data[2].TGLSTS);
-//          document.getElementById("data4").innerHTML =("Nomor STS : "+data[3].NOSTS+" Nilai : "+dollarUS.format(data[3].NILAI));
-//          document.getElementById("dataw4").innerHTML =("Pada : "+data[3].TGLSTS);
-//          document.getElementById("data5").innerHTML =("Nomor STS : "+data[4].NOSTS+" Nilai : "+dollarUS.format(data[4].NILAI));
-//          document.getElementById("dataw5").innerHTML =("Pada : "+data[4].TGLSTS);
-//       // }
-//     }
-//   })
-// }
+function dataload() {
+  $.ajax({
+    url : '/dataload',
+    type : 'GET',
+    dataType : 'json',
+    success : function(data){
+      // for(let i=0; i<data.length; i++){
+         document.getElementById("data1").innerHTML =("Nomor STS : "+data[0].NOSTS+" Nilai : "+dollarUS.format(data[0].NILAI));
+         document.getElementById("dataw1").innerHTML =("Pada : "+data[0].TGLSTS);
+         document.getElementById("data2").innerHTML =("Nomor STS : "+data[1].NOSTS+" Nilai : "+dollarUS.format(data[1].NILAI));
+         document.getElementById("dataw2").innerHTML =("Pada : "+data[1].TGLSTS);
+         document.getElementById("data3").innerHTML =("Nomor STS : "+data[2].NOSTS+" Nilai : "+dollarUS.format(data[2].NILAI));
+         document.getElementById("dataw3").innerHTML =("Pada : "+data[2].TGLSTS);
+         document.getElementById("data4").innerHTML =("Nomor STS : "+data[3].NOSTS+" Nilai : "+dollarUS.format(data[3].NILAI));
+         document.getElementById("dataw4").innerHTML =("Pada : "+data[3].TGLSTS);
+         document.getElementById("data5").innerHTML =("Nomor STS : "+data[4].NOSTS+" Nilai : "+dollarUS.format(data[4].NILAI));
+         document.getElementById("dataw5").innerHTML =("Pada : "+data[4].TGLSTS);
+      // }
+    }
+  })
+}
 
-// loadSum1();
-// loadSum2();
-// dataload();
-// loadDataChart();
-// setInterval(() => {
-//   loadSum1();
-//   loadSum2();
-//   dataload();
-//   loadDataChart();
-// }, 5000);
+loadSum1();
+loadSum2();
+dataload();
+loadDataChart();
+setInterval(() => {
+  loadSum1();
+  loadSum2();
+  dataload();
+  loadDataChart();
+}, 5000);
  
-// var tes = document.getElementById("sum1")
-// tes.append("10")
-// $('#sum1').append(10)
+var tes = document.getElementById("sum1")
+tes.append("10")
+$('#sum1').append(10)
 </script>
 @endpush
