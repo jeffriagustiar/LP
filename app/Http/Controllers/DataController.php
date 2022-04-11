@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Sp2diModel;
 use App\Model\LandingModel;
+use App\Model\Sp2dModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -23,9 +24,12 @@ class DataController extends Controller
     {
         // $data = LandingModel::all();
         // KDSTATUS = 21 GU
-        $data = Sp2diModel::where('KDSTATUS','24');
+        // $data = Sp2diModel::where('KDSTATUS','24');
                             // ->orderBy('NOSP2D', 'desc');
                             // ->get();
+        $data = Sp2diModel::join('DAFTUNIT as a','SP2D.UNITKEY','=','a.UNITKEY')
+                            ->select(['SP2D.*','a.NMUNIT'])
+                            ->where('SP2D.KDSTATUS','24');
 
         return DataTables::of($data)
                 ->addIndexColumn()
@@ -50,8 +54,8 @@ class DataController extends Controller
                     $a = ' <a 
                                 href="javascript:void(0)" 
                                 data-toggle="tooltip"  
-                                data-id="'.$i->id.'" 
-                                data-p2="'.$i->nilai.'"
+                                data-id="'.$i->NOSP2D.'" 
+                                data-p2="'.$i->NOSP2D.'"
                                 data-original-title="Select" 
                                 class="btn btn-primary btn-sm selectData"> Select 
                             </a>';
@@ -88,7 +92,11 @@ class DataController extends Controller
 
     public function lookData($id)
     {
-        $data = LandingModel::where('id',$id);
+        // $data = LandingModel::where('id',$id);
+        $data = Sp2diModel::where('NOSP2D','0003/LS-GAJI/BKD/PYK/2021');
+
+        // $data = Sp2dModel::where('NOSP2D','0003/LS-GAJI/BKD/PYK/2021');
+        // $data = Sp2dModel::where('NOSP2D',$id);
 
         return DataTables::of($data)
                 ->addIndexColumn()

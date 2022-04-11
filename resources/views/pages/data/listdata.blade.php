@@ -15,9 +15,10 @@
               <div class="col-sm-12">
                 <div class="card">
                   <div class="card-header">
-                    <h5>Ajax data source (Objects)</h5><span>The example below shows DataTables loading data for a table from arrays as the data source, where the structure of the row's data source in this example is:</span>
+                    <h5>SP2D - LS</h5>
+                    {{-- <span>The example below shows DataTables loading data for a table from arrays as the data source, where the structure of the row's data source in this example is:</span> --}}
                     
-                    <a class="btn btn-primary" href="javascript:void(0)" id="createNewPost"> Add New Post</a>
+                    <a class="btn btn-primary" href="javascript:void(0)" id="createNewPost"> Add New </a>
 
                   </div>
                   <div class="card-body">
@@ -25,11 +26,12 @@
                       <table class="display datatables" id="ajax-data-object">
                         <thead>
                           <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Action</th>
+                            <th>NoSP2D</th>
+                            <th>Nama SKPD</th>
+                            <th>NoSPM</th>
+                            <th>Keperluan</th>
+                            <th>Tanggal Buat</th>
+                            <th width="200px">Action</th>
                           </tr>
                         </thead>
                         {{-- <tfoot>
@@ -167,7 +169,6 @@
     {{-- <script src="{{ url('/assets/js/datatable/datatables/datatable.custom.js') }}"></script> --}}
 
     <script>
-      let a;
       $(function () {
 
         $.ajaxSetup({
@@ -181,10 +182,11 @@
           serverSide: true,
           ajax: '/dashaboard/getdata',
           columns: [
-            { data: 'NOSP2D' }, 
-            { data: 'NOSPM' }, 
-            { data: 'KEPERLUAN' }, 
-            { data: 'TGLSP2D' },
+            { data: 'NOSP2D', name:'SP2D.NOSP2D'}, 
+            { data: 'NMUNIT', name:'a.NMUNIT'}, 
+            { data: 'NOSPM', name:'SP2D.NOSPM'}, 
+            { data: 'KEPERLUAN', name:'SP2D.KEPERLUAN'}, 
+            { data: 'TGLSP2D', name:'SP2D.TGLSP2D'},
             { data: 'action'}
           ]
         });
@@ -257,10 +259,10 @@
           serverSide: true,
           ajax: '/dashaboard/getdata',
           columns: [
-            { data: 'id' }, 
-            { data: 'nilai' }, 
-            { data: 'created_at' }, 
-            { data: 'updated_at' },
+            { data: 'NOSP2D' }, 
+            { data: 'NOSPM' }, 
+            { data: 'KEPERLUAN' }, 
+            { data: 'TGLSP2D' },
             { data: 'select'}
           ]
         });
@@ -277,12 +279,13 @@
         
         
         $('body').on('click', '.DataLook', function () {
-          var id = '';
-          var id = $(this).data("id");
+          let id = $(this).data("id");
           // var select_id2 = $(this).data("p2");
           $('#lookData').find('.modal-body3 #id').val(id);
           // console.log(id)
           $('#lookData').modal('show');
+
+          console.log(id);
 
           var table3 = $('#tableLookData').DataTable({
             processing: true,
@@ -290,11 +293,11 @@
             destroy: true,
             ajax: '/dashaboard/lookdata/'+id,
             columns: [
-              { data: 'id' }, 
-              { data: 'nilai' }, 
-              { data: 'created_at' }, 
-              { data: 'updated_at' },
-              { data: 'select'}
+              { data: 'NOSP2D' }, 
+              { data: 'NOSP2D' }, 
+              { data: 'NOSP2D' }, 
+              { data: 'NOSP2D' },
+              { data: 'NOSP2D'}
             ]
           });
 

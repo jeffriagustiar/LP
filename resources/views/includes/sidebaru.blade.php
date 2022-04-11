@@ -34,9 +34,10 @@
                 <li><a href="dashboard-02.html">Ecommerce</a></li>
               </ul> --}}
             </li>
-            <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="layers"></i><span>Data</span></a>
+            <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="layers"></i><span>SP2D</span></a>
               <ul class="nav-submenu menu-content">
-                <li><a href="{{ route('list-data') }}">List Data</a></li>
+                <li><a href="{{ route('list-data') }}">SP2D - LS</a></li>
+                <li><a href="{{ route('list-data') }}">SP2D - GU</a></li>
                 {{-- <li><a href="chart-widget.html">Chart</a></li> --}}
               </ul>
             </li>
