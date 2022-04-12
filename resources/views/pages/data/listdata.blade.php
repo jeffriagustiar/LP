@@ -31,7 +31,7 @@
                             <th>NoSPM</th>
                             <th>Keperluan</th>
                             <th>Tanggal Buat</th>
-                            <th width="200px">Action</th>
+                            <th width="300px">Action</th>
                           </tr>
                         </thead>
                         {{-- <tfoot>
@@ -145,11 +145,11 @@
         <table class="datatables" id="tableLookData">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Office</th>
-              <th>Age</th>
-              <th>Action</th>
+              <th>NoSP2D</th>
+              <th>Nama Kegiatan</th>
+              <th>Nama Rekening</th>
+              <th>Nilai</th>
+              <th>NoSP2Dx</th>
             </tr>
           </thead>
         </table>
@@ -180,6 +180,7 @@
         var table = $('#ajax-data-object').DataTable({
           processing: true,
           serverSide: true,
+          order: [[4,'asc']],
           ajax: '/dashaboard/getdata',
           columns: [
             { data: 'NOSP2D', name:'SP2D.NOSP2D'}, 
@@ -259,10 +260,10 @@
           serverSide: true,
           ajax: '/dashaboard/getdata',
           columns: [
-            { data: 'NOSP2D' }, 
-            { data: 'NOSPM' }, 
-            { data: 'KEPERLUAN' }, 
-            { data: 'TGLSP2D' },
+            { data: 'NOSP2D', name:'SP2D.NOSP2D'}, 
+            { data: 'NOSPM', name:'SP2D.NOSPM'}, 
+            { data: 'KEPERLUAN', name:'SP2D.KEPERLUAN'}, 
+            { data: 'TGLSP2D', name:'SP2D.TGLSP2D'},
             { data: 'select'}
           ]
         });
@@ -285,7 +286,7 @@
           // console.log(id)
           $('#lookData').modal('show');
 
-          console.log(id);
+          // console.log(id);
 
           var table3 = $('#tableLookData').DataTable({
             processing: true,
@@ -293,11 +294,11 @@
             destroy: true,
             ajax: '/dashaboard/lookdata/'+id,
             columns: [
-              { data: 'NOSP2D' }, 
-              { data: 'NOSP2D' }, 
-              { data: 'NOSP2D' }, 
-              { data: 'NOSP2D' },
-              { data: 'NOSP2D'}
+              { data: 'NOSP2D', name:'SP2DDETR.NOSP2D'}, 
+              { data: 'NMKEGUNIT', name:'b.NMKEGUNIT'}, 
+              { data: 'NMPER', name:'c.NMPER'}, 
+              { data: 'NILAI', name:'SP2DDETR.NILAI'},
+              { data: 'nosp2dx', name:'a.nosp2dx'}
             ]
           });
 
