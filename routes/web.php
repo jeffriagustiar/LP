@@ -22,8 +22,10 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::DELETE('/dashaboard/deletedata/{id}', 'DataController@deleteData')->name('delete-data');
     Route::post('/dashaboard/adddata', 'DataController@addData')->name('add-data');
     Route::get('/dashaboard/lookdata/{id}', 'DataController@lookData')->name('look-data');
-    Route::get('/dashaboard/lookdatapotongan', 'DataController@lookDataPotongan')->name('look-data-potongan');
-    Route::get('/dashaboard/lookdatapajak', 'DataController@lookDataPajak')->name('look-data-pajak');
+    Route::get('/dashaboard/lookdatapotongan/{id}', 'DataController@lookDataPotongan')->name('look-data-potongan');
+    Route::get('/dashaboard/lookdatapajak/{id}', 'DataController@lookDataPajak')->name('look-data-pajak');
+    Route::get('/dashaboard/ttd', 'DataController@TtdSp2d')->name('list-ttd');
+    Route::get('/dashaboard/listSpm', 'DataController@listSpmSp2d')->name('list-spm');
 });
 
 Route::get('/', 'LandingPageController@index')->name('landing');
