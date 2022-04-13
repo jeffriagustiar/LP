@@ -557,6 +557,7 @@
                       z_index:10000,
                   });
                   table.draw();
+                  table2.draw();
               },
               error: function (data) {
                   console.log('Error:', data);

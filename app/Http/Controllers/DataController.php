@@ -9,6 +9,9 @@ use App\Model\Sp2d\PajakSp2dModel;
 use Illuminate\Http\Request;
 use App\Model\Sp2d\PotonganSp2dModel;
 use App\Model\Sp2d\TtdModel;
+use App\Model\Spm\PajakSpmModel;
+use App\Model\Spm\PotonganSpmModel;
+use App\Model\Spm\SpmDetrModel;
 use App\Model\Spm\SpmModel;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use Yajra\DataTables\Facades\DataTables;
@@ -113,10 +116,25 @@ class DataController extends Controller
 
     public function deleteData($id)
     {
-        $data = Sp2diModel::join('tbl_sp2d_jef as a','SP2D.NOSP2D','=','a.NOSP2D')
+        $data = Sp2dModel::join('tbl_sp2d_jef as a','SP2DDETR.NOSP2D','=','a.NOSP2D')
                             ->select(['a.nosp2d'])
                             ->where('a.nosp2dx',$id);
         $data->delete();
+
+        $data2 = PotonganSp2dModel::join('tbl_sp2d_jef as a','SP2DDETB.NOSP2D','=','a.NOSP2D')
+                            ->select(['a.nosp2d'])
+                            ->where('a.nosp2dx',$id);
+        $data2->delete();
+
+        $data3 = PajakSp2dModel::join('tbl_sp2d_jef as a','SP2DPJK.NOSP2D','=','a.NOSP2D')
+                            ->select(['a.nosp2d'])
+                            ->where('a.nosp2dx',$id);
+        $data3->delete();
+
+        $dataP = Sp2diModel::join('tbl_sp2d_jef as a','SP2D.NOSP2D','=','a.NOSP2D')
+                            ->select(['a.nosp2d'])
+                            ->where('a.nosp2dx',$id);
+        $dataP->delete();
 
         return response()->json([
             'title' => 'Hapus Data',
@@ -126,12 +144,19 @@ class DataController extends Controller
 
     public function addData(Request $request)
     {
+        $a = $request->unitkey;
+        $b = $request->nosp2d;
+        $c = $request->nospm;
+
+        $Ddetail = SpmDetrModel::where('NOSPM',$c)->get();
+        $Pdetail = PotonganSpmModel::where('NOSPM',$c)->get();
+        $Pjkdetail = PajakSpmModel::where('NOSPM',$c)->get();
+
         $data = [
-            // 'nilai' => $request->nilai
-            'UNITKEY' => $request->unitkey,
-            'NOSP2D' => $request->nosp2d,
+            'UNITKEY' => $a,
+            'NOSP2D' => $b,
             'KDSTATUS' => '24',
-            'NOSPM' => $request->nospm,
+            'NOSPM' => $c,
             'KEYBEND' => $request->keybend,
             'IDXSKO' => $request->idxsko,
             'IDXTTD' => $request->idttd,
@@ -150,10 +175,50 @@ class DataController extends Controller
 
         Sp2diModel::create($data);
 
+        foreach ($Ddetail as $d) {
+            $data2 = [
+                'KDKEGUNIT' => $d->KDKEGUNIT,
+                'MTGKEY'  => $d->MTGKEY,
+                'UNITKEY' => $a,
+                'NOSP2D' => $b,
+                'NOJETRA' => $d->NOJETRA,
+                'NILAI' => $d->NILAI
+            ];
+
+            Sp2dModel::create($data2);
+        }
+
+        foreach ($Pdetail as $p) {
+            $data3 = [
+                'MTGKEY' => $p->MTGKEY,
+                'UNITKEY' => $p->UNITKEY,
+                'NOSP2D' => $b,
+                'NOJETRA' => $p->NOJETRA,
+                'NILAI' => $p->NILAI
+            ];
+
+            PotonganSp2dModel::create($data3);
+        }
+
+        foreach ($Pjkdetail as $p) {
+            $data4 = [
+                'UNITKEY' => $p->UNITKEY,
+                'NOSP2D' => $b,
+                'PJKKEY' => $p->PJKKEY,
+                'NILAI' => $p->NILAI,
+                'KETERANGAN' => $p->KETERANGAN
+            ];
+
+            PajakSp2dModel::create($data4);
+        }
+
+
         return response()->json([
             'title' => 'Add Data',
             'success' => 'Success tambah data'
         ]);
+
+        // return response()->json($Pdetail);
     }
 
     public function lookData($id)
