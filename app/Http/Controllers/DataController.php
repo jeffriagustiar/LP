@@ -43,7 +43,7 @@ class DataController extends Controller
                     $a = ' <a 
                                 href="javascript:void(0)" 
                                 data-toggle="tooltip"  
-                                data-id="'.$item->NOSP2D.'" 
+                                data-id="'.$item->nosp2dx.'" 
                                 data-original-title="Delete" 
                                 class="btn btn-danger btn-sm deleteData">
                                 <i class="fa fa-trash-o"></i>
@@ -74,6 +74,7 @@ class DataController extends Controller
                             </a>';
                     return $a;
                 })
+                // bisa jadi dipakai
                 ->addColumn('select', function($i){
                     $a = ' <a 
                                 href="javascript:void(0)" 
@@ -112,7 +113,9 @@ class DataController extends Controller
 
     public function deleteData($id)
     {
-        $data = LandingModel::find($id);
+        $data = Sp2diModel::join('tbl_sp2d_jef as a','SP2D.NOSP2D','=','a.NOSP2D')
+                            ->select(['a.nosp2d'])
+                            ->where('a.nosp2dx',$id);
         $data->delete();
 
         return response()->json([
@@ -124,10 +127,28 @@ class DataController extends Controller
     public function addData(Request $request)
     {
         $data = [
-            'nilai' => $request->nilai
+            // 'nilai' => $request->nilai
+            'UNITKEY' => $request->unitkey,
+            'NOSP2D' => $request->nosp2d,
+            'KDSTATUS' => '24',
+            'NOSPM' => $request->nospm,
+            'KEYBEND' => $request->keybend,
+            'IDXSKO' => $request->idxsko,
+            'IDXTTD' => $request->idttd,
+            'KDP3' => $request->rekan,
+            'IDXKODE' => $request->idxkode,
+            // 'NOREG' => '',
+            'KETOTOR' => $request->nospd,
+            'NOKONTRAK' => $request->nokon,
+            'KEPERLUAN' => $request->keperluan,
+            'PENOLAKAN' => '1',
+            'TGLSP2D' => $request->tglsp2d,
+            'TGLSPM' => $request->tglspm,
+            'NOBBANTU' => '1'
+            
         ];
 
-        LandingModel::create($data);
+        Sp2diModel::create($data);
 
         return response()->json([
             'title' => 'Add Data',
@@ -210,22 +231,40 @@ class DataController extends Controller
 
     public function listSpmSp2d()
     {
-        $data = SpmModel::all();
+        $data = SpmModel::leftJoin('SP2D as a','ANTARBYR.NOSPM','=','a.NOSPM')
+                            ->join('DAFTUNIT as b','ANTARBYR.UNITKEY','=','b.UNITKEY')
+                            ->select(['ANTARBYR.*','b.NMUNIT'])
+                            ->whereNull('a.NOSPM');
 
         return DataTables::of($data)
-                        // ->addIndexColumn()
-                        // ->addColumn('select', function($i){
-                        //     $a = ' <a 
-                        //         href="javascript:void(0)" 
-                        //         data-toggle="tooltip"  
-                        //         data-id="'.$i->NOSPM.'" 
-                        //         data-p2="'.$i->NOSPM.'"
-                        //         data-original-title="Select" 
-                        //         class="btn btn-primary btn-sm selectDataTtd"> Select 
-                        //     </a>';
-                        //     return $a;
-                        // })
-                        // ->rawColumns(['select'])
+                        ->addIndexColumn()
+                        ->addColumn('select', function($i){
+
+                            if ($i->NOKONTRAK == null) {
+                                $as = '-';
+                            }else{
+                                $as = $i->NOKONTRAK;
+                            }
+
+                            $a = ' <a 
+                                href="javascript:void(0)" 
+                                data-toggle="tooltip"  
+                                data-id="'.$i->NOSPM.'" 
+                                data-d2="'.$i->KETOTOR.'"
+                                data-d3="'.$i->KEPERLUAN.'"
+                                data-d4="'.$as.'"
+                                data-d5="'.$i->KDP3.'"
+                                data-d6="'.$i->TGLSPM.'"
+                                data-d7="'.$i->UNITKEY.'"
+                                data-d8="'.$i->KEYBEND.'"
+                                data-d9="'.$i->IDXSKO.'"
+                                data-d10="'.$i->IDXKODE.'"
+                                data-original-title="Select" 
+                                class="btn btn-primary btn-sm selectDataSpm"> Select 
+                            </a>';
+                            return $a;
+                        })
+                        ->rawColumns(['select'])
                         ->make(true);
     }
 

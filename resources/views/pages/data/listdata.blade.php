@@ -67,7 +67,7 @@
             <label class="col-lg-12 form-label ">Penanda Tangan</label>
             <div class="col-lg-12">
               <div class="input-group">
-                <input id="ttd" name="ttd" class="form-control btn-square" placeholder="TTD" type="text">
+                <input id="ttd" name="ttd" class="form-control btn-square" placeholder="TTD" type="text" required>
                 <input id="idttd" name="idttd" class="form-control btn-square" placeholder="TTD" type="hidden">
                 <span class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".ttd" id="ttdList">append</span>
               </div>
@@ -78,7 +78,7 @@
             <label class="col-sm-2 control-label">No.SP2D</label>
             <div class="col-lg-12">
               <div class="input-group">
-                <input type="text" class="form-control" id="nosp2d" name="nosp2d" placeholder="Enter NoSP2D" value="" >
+                <input type="text" class="form-control" id="nosp2d" name="nosp2d" placeholder="Enter NoSP2D" value=""  required>
               </div>
             </div>
           </div>
@@ -87,13 +87,13 @@
             <label class="col-sm-2 control-label">Tanggal SP2D</label>
             <div class="col-lg-4">
               <div class="input-group">
-                <input type="date" class="form-control" id="tglsp2d" name="tglsp2d" placeholder="Enter Date SP2D" value="" >
+                <input type="text" class="form-control" id="tglsp2d" name="tglsp2d" placeholder="Enter Date SP2D" value=""  required>
               </div>
             </div>
             <label class="col-sm-2 control-label">Tanggal SPM</label>
             <div class="col-lg-4">
               <div class="input-group">
-                <input type="date" class="form-control" id="tglspm" name="tglspm" placeholder="Enter Date SP2D" value="" >
+                <input type="text" class="form-control" id="tglspm" name="tglspm" placeholder="Enter Date SP2D" value=""  required>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@
             <label class="col-lg-12 form-label ">No.SPM</label>
             <div class="col-lg-12">
               <div class="input-group">
-                <input id="nospm" name="nospm" class="form-control btn-square" placeholder="placeholder" type="text">
+                <input id="nospm" name="nospm" class="form-control btn-square" placeholder="placeholder" type="text" required>
                 <span class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</span>
                 {{-- <button href="javascript:void(0)" class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</button> --}}
               </div>
@@ -113,7 +113,7 @@
             <label class="col-sm-2 control-label">No.SPD</label>
             <div class="col-lg-12">
               <div class="input-group">
-                <input type="text" class="form-control" id="nospd" name="nospd" placeholder="Enter NoSPD" value="" >
+                <input type="text" class="form-control" id="nospd" name="nospd" placeholder="Enter NoSPD" value=""  required>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@
             <label class="col-sm-2 control-label">No.Kontrak</label>
             <div class="col-lg-4">
               <div class="input-group">
-                <input type="text" class="form-control" id="nokon" name="nokon" placeholder="Enter No Kontrak" value="" >
+                <input type="text" class="form-control" id="nokon" name="nokon" placeholder="Enter No Kontrak" value="" required>
               </div>
             </div>
             <label class="col-sm-2 control-label">Rekanan</label>
@@ -137,6 +137,10 @@
             <label class="col-sm-2 control-label">Keperluan</label>
             <div class="col-sm-12">
               <textarea id="keperluan" name="keperluan"  placeholder="Enter Description" class="form-control"></textarea>
+              <input type="hidden" class="form-control" id="unitkey" name="unitkey" value="" >
+              <input type="hidden" class="form-control" id="keybend" name="keybend" value="" >
+              <input type="hidden" class="form-control" id="idxsko" name="idxsko" value="" >
+              <input type="hidden" class="form-control" id="idxkode" name="idxkode" value="" >
             </div>
           </div>
           
@@ -156,7 +160,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="listData">Modal title</h5>
+        <h5 class="modal-title" id="listData">List SPM</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body2">
@@ -164,10 +168,10 @@
         <table class="datatables" id="tableListData">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Office</th>
-              <th>Age</th>
+              <th>NoSPM</th>
+              <th>Nama SKPD</th>
+              <th>Keperluan</th>
+              <th>Tanggal SPM</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -416,23 +420,40 @@
         var table2 = $('#tableListData').DataTable({
           processing: true,
           serverSide: true,
-          ajax: '/dashaboard/getdata',
+          ajax: '/dashaboard/listSpm',
           columns: [
-            { data: 'NOSP2D', name:'SP2D.NOSP2D'}, 
-            { data: 'NOSPM', name:'SP2D.NOSPM'}, 
-            { data: 'KEPERLUAN', name:'SP2D.KEPERLUAN'}, 
-            { data: 'TGLSP2D', name:'SP2D.TGLSP2D'},
+            { data: 'NOSPM', name:'ANTARBYR.NOSPM'}, 
+            { data: 'NMUNIT', name:'b.NMUNIT'}, 
+            { data: 'KEPERLUAN', name:'ANTARBYR.KEPERLUAN'}, 
+            { data: 'TGLSPM', name:'ANTARBYR.TGLSPM'},
             { data: 'select'}
           ]
         });
 
-        $('body').on('click', '.selectData', function () {
-          var select_id = $(this).data("id");
-          var select_id2 = $(this).data("p2");
-          console.log(select_id)
-          // $('#addData').find('.modal-body #tes123').append(select_id);
-          $('#addData').find('.modal-body #nospm').val(select_id);
-          $('#addData').find('.modal-body #nospd').val(select_id2);
+        $('body').on('click', '.selectDataSpm', function () {
+          var data = $(this).data("id");
+          var data2 = $(this).data("d2");
+          var data3 = $(this).data("d3");
+          var data4 = $(this).data("d4");
+          var data5 = $(this).data("d5");
+          var data6 = $(this).data("d6");
+          var data7 = $(this).data("d7");
+          var data8 = $(this).data("d8");
+          var data9 = $(this).data("d9");
+          var data10 = $(this).data("d10");
+          console.log(data)
+          // $('#addData').find('.modal-body #tes123').append(data);
+          $('#addData').find('.modal-body #nospm').val(data);
+          $('#addData').find('.modal-body #nospd').val(data2);
+          $('#addData').find('.modal-body #keperluan').val(data3);
+          $('#addData').find('.modal-body #nokon').val(data4);
+          $('#addData').find('.modal-body #rekan').val(data5);
+          $('#addData').find('.modal-body #tglspm').val(data6);
+          $('#addData').find('.modal-body #tglsp2d').val(data6); // option
+          $('#addData').find('.modal-body #unitkey').val(data7);
+          $('#addData').find('.modal-body #keybend').val(data8);
+          $('#addData').find('.modal-body #idxsko').val(data9);
+          $('#addData').find('.modal-body #idxkode').val(data10);
           $('#listData').modal('hide');
         });
         
@@ -505,11 +526,12 @@
 
 
         $('body').on('click', '.deleteData', function () {
-          var Customer_id = $(this).data("id");
+          var id = $(this).data("id");
           // confirm("Are You sure want to delete !");
+          console.log(id)
           $.ajax({
               type: "DELETE",
-              url: '/dashaboard/deletedata/'+Customer_id,
+              url: '/dashaboard/deletedata/'+id,
               success: function (data) {
                   $.notify({
                       title: data.title,
