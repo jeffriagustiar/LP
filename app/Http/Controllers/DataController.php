@@ -47,6 +47,7 @@ class DataController extends Controller
                                 href="javascript:void(0)" 
                                 data-toggle="tooltip"  
                                 data-id="'.$item->nosp2dx.'" 
+                                data-d1="'.$item->TGLVALID.'" 
                                 data-original-title="Delete" 
                                 class="btn btn-danger btn-sm deleteData">
                                 <i class="fa fa-trash-o"></i>

@@ -89,7 +89,7 @@
                 <div class="form-group">
                   <label>Email Address</label>
                   <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
-                    <input class="form-control" type="email" required="" name="email" placeholder="Email">
+                    <input class="form-control" type="text" required="" name="email" placeholder="Email">
                   </div>
                 </div>
                 <div class="form-group">

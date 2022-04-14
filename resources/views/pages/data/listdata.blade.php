@@ -527,42 +527,69 @@
 
         $('body').on('click', '.deleteData', function () {
           var id = $(this).data("id");
+          var d1 = $(this).data("d1");
+          // console.log(d1)
           // confirm("Are You sure want to delete !");
-          console.log(id)
-          $.ajax({
-              type: "DELETE",
-              url: '/dashaboard/deletedata/'+id,
-              success: function (data) {
-                  $.notify({
-                      title: data.title,
-                      message: data.success
-                  },
-                  {
-                      type:'primary',
-                      allow_dismiss:true,
-                      newest_on_top:true ,
-                      mouse_over:false,
-                      showProgressbar:false,
-                      spacing:25,
-                      timer:2000,
-                      placement:{
-                        from:'top',
-                        align:'right'
-                      },
-                      offset:{
-                        x:30,
-                        y:30
-                      },
-                      delay:1000 ,
-                      z_index:10000,
-                  });
-                  table.draw();
-                  table2.draw();
+          if (d1 != ''){
+            $.notify({
+              title: 'Info',
+              message: 'Data tidak bisa dihapus karena validasi masih ada'
+            },{
+              type:'warning',
+              allow_dismiss:true,
+              newest_on_top:true ,
+              mouse_over:false,
+              showProgressbar:false,
+              spacing:25,
+              timer:2000,
+              placement:{
+                from:'top',
+                align:'right'
               },
-              error: function (data) {
-                  console.log('Error:', data);
-              }
-          });
+              offset:{
+                x:30,
+                y:30
+              },
+              delay:1000 ,
+              z_index:10000,
+            });
+          }else{
+          // console.log(id)
+            $.ajax({
+                type: "DELETE",
+                url: '/dashaboard/deletedata/'+id,
+                success: function (data) {
+                    $.notify({
+                        title: data.title,
+                        message: data.success
+                    },
+                    {
+                        type:'primary',
+                        allow_dismiss:true,
+                        newest_on_top:true ,
+                        mouse_over:false,
+                        showProgressbar:false,
+                        spacing:25,
+                        timer:2000,
+                        placement:{
+                          from:'top',
+                          align:'right'
+                        },
+                        offset:{
+                          x:30,
+                          y:30
+                        },
+                        delay:1000 ,
+                        z_index:10000,
+                    });
+                    table.draw();
+                    table2.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+          }
         });
       });
     </script>
