@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Daftunit;
 use App\Model\Sp2dModel;
 use App\Model\Sp2diModel;
 use App\Model\LandingModel;
@@ -227,7 +228,7 @@ class DataController extends Controller
         $data = Sp2dModel::join('tbl_sp2d_jef as a','SP2DDETR.NOSP2D','=','a.nosp2d')
                             ->join('MKEGIATAN as b','SP2DDETR.KDKEGUNIT','=','b.KDKEGUNIT')
                             ->join('MATANGR as c','SP2DDETR.MTGKEY','=','c.MTGKEY')
-                            ->select(['SP2DDETR.*','a.*','b.NMKEGUNIT','c.NMPER'])
+                            ->select(['SP2DDETR.*','a.nosp2dx','b.NMKEGUNIT','c.NMPER','a.nosp2d as no_sp2d'])
                             ->where('a.nosp2dx',$id);
 
         return DataTables::of($data)
@@ -332,6 +333,22 @@ class DataController extends Controller
                         })
                         ->rawColumns(['select'])
                         ->make(true);
+    }
+
+    public function listUnit(Request $request)
+    {
+        $data = [];
+
+        if ($request->has('q')) {
+            $s = $request->q;
+            $data = Daftunit::select('UNITKEY','NMUNIT')
+                                ->where('KDLEVEL','>','2')
+                                ->where('NMUNIT','LIKE',"%$s%")
+                                ->orderBy('KDUNIT')
+                                ->get();
+        }
+
+        return response()->json($data);
     }
 
 }

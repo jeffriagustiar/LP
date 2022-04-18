@@ -18,7 +18,7 @@
 
     @stack('before-style')
     @include('includes.style')
-    @stack('')
+    @stack('after-style')
 
   </head>
   <body class="dark-only">

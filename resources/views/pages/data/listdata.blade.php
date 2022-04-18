@@ -5,9 +5,13 @@
 @endsection
 
 @push('before-style')
-  <!-- Plugins css start-->
+  <!-- Plugins datatables start-->
   <link rel="stylesheet" type="text/css" href="{{ url('/assets/css/datatables.css') }}">
-  <!-- Plugins css Ends-->
+  <!-- Plugins datatables Ends-->
+  <!-- Plugins select2 start-->
+  <link rel="stylesheet" type="text/css" href="{{ url('/assets/css/select2.css') }}">
+  {{-- <link rel="stylesheet" href="{{ url('/assets/css/summernote/summernote-bs4.min.css') }}"> --}}
+  <!-- Plugins select2 Ends-->
 @endpush
 
 @section('conten')
@@ -16,9 +20,17 @@
                 <div class="card">
                   <div class="card-header">
                     <h5>SP2D - LS</h5>
-                    {{-- <span>The example below shows DataTables loading data for a table from arrays as the data source, where the structure of the row's data source in this example is:</span> --}}
-                    
                     <a class="btn btn-primary" href="javascript:void(0)" id="createNewPost"> Add New </a>
+                    <br><br>
+                    <div class="col-sm-2">
+                      <div class="mb-3">
+                          <select id="cari" name="cari" class="cari js-example-basic-single col-sm-2 ">
+                              {{-- <option value="AL">Alabama</option>
+                              <option value="WY">Wyoming</option>
+                              <option value="PT">Peter</option> --}}
+                          </select>
+                      </div>
+                    </div>
 
                   </div>
                   <div class="card-body">
@@ -54,7 +66,7 @@
 
 
 <div class="modal fade" id="addData" tabindex="-1" aria-labelledby="addData" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addData">Add SP2D</h5>
@@ -157,7 +169,7 @@
 
 
 <div class="modal fade" id="listData" tabindex="-1" aria-labelledby="listData" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="listData">List SPM</h5>
@@ -297,6 +309,11 @@
     
     <script src="{{ url('/assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
     {{-- <script src="{{ url('/assets/js/datatable/datatables/datatable.custom.js') }}"></script> --}}
+    <!-- Plugins JS Select2 start-->
+    <script src="{{ url('/assets/js/select2/select2.full.min.js') }}"></script>
+    {{-- <script src="{{ url('/assets/js/select2/select2-custom.js') }}"></script> --}}
+    {{-- <script src="{{ url('/assets/js/summernote/summernote-bs4.min.js') }}"></script> --}}
+    <!-- Plugins JS Select2 Ends-->
 
     <script>
       $(function () {
@@ -305,6 +322,32 @@
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
+        });
+
+        $('.cari').select2({
+           placeholder: 'Select',
+           minimumInputLength:3,
+           ajax: {
+            url: '/dashaboard/listUnit',
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.NMUNIT,
+                            id: item.UNITKEY
+                        }
+                    })
+                };
+            },
+            cache: true
+          }
+        });
+
+        $('#cari').change(function () {
+          var x = document.getElementById("cari").value;
+          console.log(x);
         });
 
         var table = $('#ajax-data-object').DataTable({
@@ -373,6 +416,7 @@
                 });
                 
                 table.draw();
+                table2.draw();
           
             },
             error: function (data) {
@@ -471,6 +515,8 @@
             processing: true,
             serverSide: true,
             destroy: true,
+            pageLength: 5,
+            lengthMenu: [5, 10],
             ajax: '/dashaboard/lookdata/'+id,
             columns: [
               { data: 'NOSP2D', name:'SP2DDETR.NOSP2D'}, 

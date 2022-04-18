@@ -26,6 +26,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::get('/dashaboard/lookdatapajak/{id}', 'DataController@lookDataPajak')->name('look-data-pajak');
     Route::get('/dashaboard/ttd', 'DataController@TtdSp2d')->name('list-ttd');
     Route::get('/dashaboard/listSpm', 'DataController@listSpmSp2d')->name('list-spm');
+    Route::get('/dashaboard/listUnit', 'DataController@listUnit')->name('list-unit');
 });
 
 Route::get('/', 'LandingPageController@index')->name('landing');
