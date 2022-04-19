@@ -44,7 +44,7 @@
                             <th>Keperluan</th>
                             <th>Tanggal Buat</th>
                             <th>Setujui</th>
-                            <th width="300px">Action</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         {{-- <tfoot>
@@ -79,7 +79,7 @@
             <label class="col-lg-12 form-label ">Penanda Tangan</label>
             <div class="col-lg-12">
               <div class="input-group">
-                <input id="ttd" name="ttd" class="form-control btn-square" placeholder="TTD" type="text" required>
+                <input id="ttd" name="ttd" class="form-control btn-square" placeholder="TTD" type="text" readonly>
                 <input id="idttd" name="idttd" class="form-control btn-square" placeholder="TTD" type="hidden">
                 <span class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".ttd" id="ttdList">append</span>
               </div>
@@ -90,7 +90,7 @@
             <label class="col-sm-2 control-label">No.SP2D</label>
             <div class="col-lg-12">
               <div class="input-group">
-                <input type="text" class="form-control" id="nosp2d" name="nosp2d" placeholder="Enter NoSP2D" value=""  required>
+                <input type="text" class="form-control" id="nosp2d" name="nosp2d" placeholder="Enter NoSP2D" value="" >
               </div>
             </div>
           </div>
@@ -99,13 +99,13 @@
             <label class="col-sm-2 control-label">Tanggal SP2D</label>
             <div class="col-lg-4">
               <div class="input-group">
-                <input type="text" class="form-control" id="tglsp2d" name="tglsp2d" placeholder="Enter Date SP2D" value=""  required>
+                <input type="text" class="form-control" id="tglsp2d" name="tglsp2d" placeholder="Enter Date SP2D" value=""   readonly>
               </div>
             </div>
             <label class="col-sm-2 control-label">Tanggal SPM</label>
             <div class="col-lg-4">
               <div class="input-group">
-                <input type="text" class="form-control" id="tglspm" name="tglspm" placeholder="Enter Date SP2D" value=""  required>
+                <input type="text" class="form-control" id="tglspm" name="tglspm" placeholder="Enter Date SP2D" value=""   readonly>
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@
             <label class="col-lg-12 form-label ">No.SPM</label>
             <div class="col-lg-12">
               <div class="input-group">
-                <input id="nospm" name="nospm" class="form-control btn-square" placeholder="placeholder" type="text" required>
+                <input id="nospm" name="nospm" class="form-control btn-square" placeholder="placeholder" type="text"  readonly>
                 <span class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</span>
                 {{-- <button href="javascript:void(0)" class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</button> --}}
               </div>
@@ -125,7 +125,7 @@
             <label class="col-sm-2 control-label">No.SPD</label>
             <div class="col-lg-12">
               <div class="input-group">
-                <input type="text" class="form-control" id="nospd" name="nospd" placeholder="Enter NoSPD" value=""  required>
+                <input type="text" class="form-control" id="nospd" name="nospd" placeholder="Enter NoSPD" value=""   readonly>
               </div>
             </div>
           </div>
@@ -134,13 +134,13 @@
             <label class="col-sm-2 control-label">No.Kontrak</label>
             <div class="col-lg-4">
               <div class="input-group">
-                <input type="text" class="form-control" id="nokon" name="nokon" placeholder="Enter No Kontrak" value="" required>
+                <input type="text" class="form-control" id="nokon" name="nokon" placeholder="Enter No Kontrak" value=""  readonly>
               </div>
             </div>
             <label class="col-sm-2 control-label">Rekanan</label>
             <div class="col-lg-4">
               <div class="input-group">
-                <input type="text" class="form-control" id="rekan" name="rekan" placeholder="Enter Rekan" value="" >
+                <input type="text" class="form-control" id="rekan" name="rekan" placeholder="Enter Rekan" value="" readonly>
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Keperluan</label>
             <div class="col-sm-12">
-              <textarea id="keperluan" name="keperluan"  placeholder="Enter Description" class="form-control"></textarea>
+              <textarea id="keperluan" name="keperluan"  placeholder="Enter Description" class="form-control"  readonly></textarea>
               <input type="hidden" class="form-control" id="unitkey" name="unitkey" value="" >
               <input type="hidden" class="form-control" id="keybend" name="keybend" value="" >
               <input type="hidden" class="form-control" id="idxsko" name="idxsko" value="" >
@@ -220,7 +220,7 @@
 </div>
 
 <div class="modal fade" id="lookData" tabindex="-1" aria-labelledby="lookData" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="lookData">Detail SP2D</h5>
@@ -228,78 +228,70 @@
       </div>
       <div class="modal-body3">
 
-      <input type="text" name="id" id="id">
+      <input type="hidden" name="id" id="id">
 
-        <table class="datatables" id="tableLookData">
-          <thead>
-            <tr>
-              <th>NoSP2D</th>
-              <th>Nama Kegiatan</th>
-              <th>Nama Rekening</th>
-              <th>Nilai</th>
-              <th>NoSP2Dx</th>
-            </tr>
-          </thead>
-        </table>
+      <div class="card">
+        <div class="card-body">
+          <ul class="nav nav-pills" id="pills-tab" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="rinci-tab" data-bs-toggle="pill" href="#rinci" role="tab" aria-controls="rinci" aria-selected="true">Rincian<div class="media"></div></a></li>
+              <li class="nav-item"><a class="nav-link" id="potongan-tab" data-bs-toggle="pill" href="#potongan" role="tab" aria-controls="potongan" aria-selected="false">Potongan</a></li>
+              <li class="nav-item"><a class="nav-link" id="pajak-tab" data-bs-toggle="pill" href="#pajak" role="tab" aria-controls="pajak" aria-selected="false">Pajak</a></li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+
+            <div class="tab-pane fade show active" id="rinci" role="tabpanel" aria-labelledby="rinci-tab">
+              <br>
+              <table class="datatables" id="tableLookData">
+                <thead>
+                  <tr>
+                    <th>NoSP2D</th>
+                    <th>Nama Kegiatan</th>
+                    <th>Nama Rekening</th>
+                    <th>Nilai</th>
+                    <th>NoSP2Dx</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+
+            <div class="tab-pane fade" id="potongan" role="tabpanel" aria-labelledby="potongan-tab">
+              <br>
+              <table class="datatables" id="tableLookDataPotongan">
+                <thead>
+                  <tr>
+                    <th>NoSP2D</th>
+                    <th>Nama Rekening</th>
+                    <th>Nilai</th>
+                    <th>NoSP2Dx</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+
+            <div class="tab-pane fade" id="pajak" role="tabpanel" aria-labelledby="pajak-tab">
+              <br>
+              <table class="datatables" id="tableLookDataPajak">
+                <thead>
+                  <tr>
+                    <th>NoSP2D</th>
+                    <th>Nama Rekening</th>
+                    <th>Nilai</th>
+                    <th>NoSP2Dx</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
 
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="lookDataPotongan" tabindex="-1" aria-labelledby="lookDataPotongan" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="lookDataPotongan">Detail Potongan</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body4">
 
-      <input type="text" name="id" id="id">
-
-        <table class="datatables" id="tableLookDataPotongan">
-          <thead>
-            <tr>
-              <th>NoSP2D</th>
-              <th>Nama Rekening</th>
-              <th>Nilai</th>
-              <th>NoSP2Dx</th>
-            </tr>
-          </thead>
-        </table>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="lookDataPajak" tabindex="-1" aria-labelledby="lookDataPajak" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="lookDataPajak">Detail Pajak</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body5">
-
-      <input type="text" name="id" id="id">
-
-        <table class="datatables" id="tableLookDataPajak">
-          <thead>
-            <tr>
-              <th>NoSP2D</th>
-              <th>Nama Rekening</th>
-              <th>Nilai</th>
-              <th>NoSP2Dx</th>
-            </tr>
-          </thead>
-        </table>
-
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -345,11 +337,6 @@
           }
         });
 
-        $('#cari').change(function () {
-          var x = document.getElementById("cari").value;
-          console.log(x);
-        });
-
         var table = $('#ajax-data-object').DataTable({
           processing: true,
           serverSide: true,
@@ -363,8 +350,40 @@
             { data: 'TGLSP2D', name:'SP2D.TGLSP2D'},
             { data: 'switch'},
             { data: 'action'}
+          ],
+          columnDefs: [
+            {width:"200px", targets:[0]},
+            {width:"150px", targets:[6]}
           ]
         });
+
+        $('#cari').change(function () {
+          var x = document.getElementById("cari").value;
+          console.log(x);
+
+          var aa = $('#ajax-data-object').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            order: [[4,'asc']],
+            ajax: '/dashaboard/getdatas/'+x,
+            columns: [
+              { data: 'NOSP2D', name:'SP2D.NOSP2D'}, 
+              { data: 'NMUNIT', name:'a.NMUNIT'}, 
+              { data: 'NOSPM', name:'SP2D.NOSPM'}, 
+              { data: 'KEPERLUAN', name:'SP2D.KEPERLUAN'}, 
+              { data: 'TGLSP2D', name:'SP2D.TGLSP2D'},
+              { data: 'switch'},
+              { data: 'action'}
+            ],
+            columnDefs: [
+              {width:"200px", targets:[0]},
+              {width:"150px", targets:[6]}
+            ]
+          });
+
+        });
+
 
         $('#createNewPost').click(function () {
           // $('#savedata').val("create-post");
@@ -417,6 +436,7 @@
                 
                 table.draw();
                 table2.draw();
+                aa.draw();
           
             },
             error: function (data) {
@@ -475,43 +495,34 @@
         });
 
         $('body').on('click', '.selectDataSpm', function () {
-          var data = $(this).data("id");
-          var data2 = $(this).data("d2");
-          var data3 = $(this).data("d3");
-          var data4 = $(this).data("d4");
-          var data5 = $(this).data("d5");
-          var data6 = $(this).data("d6");
-          var data7 = $(this).data("d7");
-          var data8 = $(this).data("d8");
-          var data9 = $(this).data("d9");
-          var data10 = $(this).data("d10");
-          console.log(data)
           // $('#addData').find('.modal-body #tes123').append(data);
-          $('#addData').find('.modal-body #nospm').val(data);
-          $('#addData').find('.modal-body #nospd').val(data2);
-          $('#addData').find('.modal-body #keperluan').val(data3);
-          $('#addData').find('.modal-body #nokon').val(data4);
-          $('#addData').find('.modal-body #rekan').val(data5);
-          $('#addData').find('.modal-body #tglspm').val(data6);
-          $('#addData').find('.modal-body #tglsp2d').val(data6); // option
-          $('#addData').find('.modal-body #unitkey').val(data7);
-          $('#addData').find('.modal-body #keybend').val(data8);
-          $('#addData').find('.modal-body #idxsko').val(data9);
-          $('#addData').find('.modal-body #idxkode').val(data10);
+          $('#addData').find('.modal-body #nospm').val($(this).data("id"));
+          $('#addData').find('.modal-body #nospd').val($(this).data("d2"));
+          $('#addData').find('.modal-body #keperluan').val($(this).data("d3"));
+          $('#addData').find('.modal-body #nokon').val($(this).data("d4"));
+          $('#addData').find('.modal-body #rekan').val($(this).data("d5"));
+          $('#addData').find('.modal-body #tglspm').val($(this).data("d6"));
+          $('#addData').find('.modal-body #tglsp2d').val($(this).data("d6")); // option
+          $('#addData').find('.modal-body #unitkey').val($(this).data("d7"));
+          $('#addData').find('.modal-body #keybend').val($(this).data("d8"));
+          $('#addData').find('.modal-body #idxsko').val($(this).data("d9"));
+          $('#addData').find('.modal-body #idxkode').val($(this).data("d10"));
           $('#listData').modal('hide');
         });
         
         
-        $('body').on('click', '.DataLook', function () {
-          let id = $(this).data("id");
+        $('#ajax-data-object tbody').on('click', '.DataLook', function () {
+          let id = $('.DataLook').data("id");
+          // let id = $(this).data("id"); //option
           // var select_id2 = $(this).data("p2");
-          $('#lookData').find('.modal-body3 #id').val(id);
+          // $('#lookData').find('.modal-body3 #id').val(id);
+          $('#id').val(id);
           // console.log(id)
           $('#lookData').modal('show');
 
           // console.log(id);
 
-          var table3 = $('#tableLookData').DataTable({
+          $('#tableLookData').DataTable({
             processing: true,
             serverSide: true,
             destroy: true,
@@ -527,17 +538,12 @@
             ]
           });
 
-        });
-
-        $('body').on('click', '.DataLookPotongan', function () {
-          let id = $(this).data("id");
-          $('#lookDataPotongan').find('.modal-body4 #id').val(id);
-          $('#lookDataPotongan').modal('show');
-
-          var table4 = $('#tableLookDataPotongan').DataTable({
+          $('#tableLookDataPotongan').DataTable({
             processing: true,
             serverSide: true,
             destroy: true,
+            pageLength: 5,
+            lengthMenu: [5, 10],
             ajax: '/dashaboard/lookdatapotongan/'+id,
             columns: [
               { data: 'NOSP2D', name:'SP2DDETB.NOSP2D'}, 
@@ -547,17 +553,12 @@
             ]
           });
 
-        });
-
-        $('body').on('click', '.DataLookPajak', function () {
-          let id = $(this).data("id");
-          $('#lookDataPajak').find('.modal-body4 #id').val(id);
-          $('#lookDataPajak').modal('show');
-
-          var table5 = $('#tableLookDataPajak').DataTable({
+          $('#tableLookDataPajak').DataTable({
             processing: true,
             serverSide: true,
             destroy: true,
+            pageLength: 5,
+            lengthMenu: [5, 10],
             ajax: '/dashaboard/lookdatapajak/'+id,
             columns: [
               { data: 'NOSP2D', name:'SP2DPJK.NOSP2D'},
@@ -568,7 +569,6 @@
           });
 
         });
-        
 
 
         $('body').on('click', '.deleteData', function () {
@@ -630,6 +630,7 @@
                     });
                     table.draw();
                     table2.draw();
+                    aa.draw();
                 },
                 error: function (data) {
                     console.log('Error:', data);

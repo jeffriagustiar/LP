@@ -60,22 +60,73 @@ class DataController extends Controller
                                 data-original-title="Look" 
                                 class="btn btn-secondary btn-sm DataLook">
                                 <i class="fa fa-search"></i>
+                            </a>';
+                    return $a;
+                })
+                // bisa jadi dipakai
+                ->addColumn('select', function($i){
+                    $a = ' <a 
+                                href="javascript:void(0)" 
+                                data-toggle="tooltip"  
+                                data-id="'.$i->NOSP2D.'" 
+                                data-p2="'.$i->NOSP2D.'"
+                                data-original-title="Select" 
+                                class="btn btn-primary btn-sm selectData"> Select 
+                            </a>';
+                    return $a;
+                })
+                ->addColumn('switch', function($i){
+                    $a = '
+                        <div class="media-body icon-state">
+                            <label class="switch">
+                                <input type="checkbox" checked><span class="switch-state"></span>
+                            </label>
+                        </div>';
+                    $b = '
+                        <div class="media-body icon-state">
+                            <label class="switch">
+                                <input type="checkbox"><span class="switch-state"></span>
+                            </label>
+                        </div>';
+                    $x = '
+                        <div class="media-body icon-state">
+                            <label class="switch">
+                                <input type="checkbox" checked><span class="switch-state"></span>
+                            </label>
+                        </div>';
+                    return $x;
+                })
+                ->rawColumns(['action','select','switch'])
+                ->make(true);
+    }
+
+    public function getData2($id)
+    {
+        $data = Sp2diModel::join('DAFTUNIT as a','SP2D.UNITKEY','=','a.UNITKEY')
+                            ->join('tbl_sp2d_jef as b','SP2D.NOSP2D','=','b.NOSP2D')
+                            ->select(['SP2D.*','a.NMUNIT','b.nosp2dx','b.nosp2d as no_sp2d'])
+                            ->where('SP2D.KDSTATUS','24')
+                            ->where('SP2D.UNITKEY','LIKE',"%$id%");
+
+        return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($item){
+                    $a = ' <a 
+                                href="javascript:void(0)" 
+                                data-toggle="tooltip"  
+                                data-id="'.$item->nosp2dx.'" 
+                                data-d1="'.$item->TGLVALID.'" 
+                                data-original-title="Delete" 
+                                class="btn btn-danger btn-sm deleteData">
+                                <i class="fa fa-trash-o"></i>
                             </a>
                             <a 
                                 href="javascript:void(0)" 
                                 data-toggle="tooltip"  
                                 data-id="'.$item->nosp2dx.'" 
                                 data-original-title="Look" 
-                                class="btn btn-secondary btn-sm DataLookPotongan">
-                                <i class="fa fa-cut"></i>
-                            </a>
-                            <a 
-                                href="javascript:void(0)" 
-                                data-toggle="tooltip"  
-                                data-id="'.$item->nosp2dx.'" 
-                                data-original-title="Look" 
-                                class="btn btn-secondary btn-sm DataLookPajak">
-                                <i class="fa fa-book"></i>
+                                class="btn btn-secondary btn-sm DataLook">
+                                <i class="fa fa-search"></i>
                             </a>';
                     return $a;
                 })
