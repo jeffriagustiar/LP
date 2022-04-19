@@ -64,34 +64,13 @@ class DataController extends Controller
                     return $a;
                 })
                 // bisa jadi dipakai
-                ->addColumn('select', function($i){
-                    $a = ' <a 
-                                href="javascript:void(0)" 
-                                data-toggle="tooltip"  
-                                data-id="'.$i->NOSP2D.'" 
-                                data-p2="'.$i->NOSP2D.'"
-                                data-original-title="Select" 
-                                class="btn btn-primary btn-sm selectData"> Select 
-                            </a>';
-                    return $a;
-                })
                 ->addColumn('switch', function($i){
-                    $a = '
-                        <div class="media-body icon-state">
+                    $a = $i->TGLVALID == null ? 0 : 1;
+                    $b = $a != 0 ? 'checked':'';
+                    $x = '<div class="media-body icon-state">
                             <label class="switch">
-                                <input type="checkbox" checked><span class="switch-state"></span>
-                            </label>
-                        </div>';
-                    $b = '
-                        <div class="media-body icon-state">
-                            <label class="switch">
-                                <input type="checkbox"><span class="switch-state"></span>
-                            </label>
-                        </div>';
-                    $x = '
-                        <div class="media-body icon-state">
-                            <label class="switch">
-                                <input type="checkbox" checked><span class="switch-state"></span>
+                                <input class="toggle-class" type="checkbox" data-id="'.$i->nosp2dx.'" '.$b.' data-toggle="toggle"><span class="switch-state"></span>
+                                
                             </label>
                         </div>';
                     return $x;
@@ -131,17 +110,6 @@ class DataController extends Controller
                     return $a;
                 })
                 // bisa jadi dipakai
-                ->addColumn('select', function($i){
-                    $a = ' <a 
-                                href="javascript:void(0)" 
-                                data-toggle="tooltip"  
-                                data-id="'.$i->NOSP2D.'" 
-                                data-p2="'.$i->NOSP2D.'"
-                                data-original-title="Select" 
-                                class="btn btn-primary btn-sm selectData"> Select 
-                            </a>';
-                    return $a;
-                })
                 ->addColumn('switch', function($i){
                     $a = '
                         <div class="media-body icon-state">

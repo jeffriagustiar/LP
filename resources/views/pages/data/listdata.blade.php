@@ -10,6 +10,9 @@
   <!-- Plugins datatables Ends-->
   <!-- Plugins select2 start-->
   <link rel="stylesheet" type="text/css" href="{{ url('/assets/css/select2.css') }}">
+   <link href="{{ url('/assets/css/bootstrap-toggle.min.css') }}" rel="stylesheet">
+
+
   {{-- <link rel="stylesheet" href="{{ url('/assets/css/summernote/summernote-bs4.min.css') }}"> --}}
   <!-- Plugins select2 Ends-->
 @endpush
@@ -29,6 +32,7 @@
                               <option value="WY">Wyoming</option>
                               <option value="PT">Peter</option> --}}
                           </select>
+                          <input class="test" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled">
                       </div>
                     </div>
 
@@ -306,6 +310,7 @@
     {{-- <script src="{{ url('/assets/js/select2/select2-custom.js') }}"></script> --}}
     {{-- <script src="{{ url('/assets/js/summernote/summernote-bs4.min.js') }}"></script> --}}
     <!-- Plugins JS Select2 Ends-->
+    <script src="{{ url('/assets/js/toggle/bootstrap-toggle.min.js') }}"></script>
 
     <script>
       $(function () {
@@ -384,6 +389,11 @@
 
         });
 
+         $('.test').change(function() { 
+           var status = $(this).prop('checked') == true ? 1 : 0;  
+           var product_id = $(this).data('id');  
+           console.log('test')
+         }); 
 
         $('#createNewPost').click(function () {
           // $('#savedata').val("create-post");
