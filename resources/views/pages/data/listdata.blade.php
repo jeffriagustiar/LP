@@ -370,7 +370,12 @@
             serverSide: true,
             destroy: true,
             order: [[4,'asc']],
-            ajax: '/dashaboard/getdatas/'+x,
+            // ajax: '/dashaboard/getdatas/'+x,
+            ajax: {
+              url:'/dashaboard/getdata/',
+              type:'GET',
+              data: {'UNITKEY':x}
+            },
             columns: [
               { data: 'NOSP2D', name:'SP2D.NOSP2D'}, 
               { data: 'NMUNIT', name:'a.NMUNIT'}, 

@@ -29,7 +29,7 @@ class DataController extends Controller
         return view('pages.data.listdata');
     }
 
-    public function getData()
+    public function getData(Request $request)
     {
         // $data = LandingModel::all();
         // KDSTATUS = 21 GU
@@ -41,55 +41,9 @@ class DataController extends Controller
                             ->leftJoin('BKUSP2D as c','SP2D.NOSP2D','=','c.NOSP2D')
                             ->select(['SP2D.*','a.NMUNIT','b.nosp2dx','b.nosp2d as no_sp2d','c.NOBKUSKPD as nobku'])
                             ->where('SP2D.KDSTATUS','24');
-        
-
-        return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($item){
-                    $a = ' <a 
-                                href="javascript:void(0)" 
-                                data-toggle="tooltip"  
-                                data-id="'.$item->nosp2dx.'" 
-                                data-d1="'.$item->TGLVALID.'" 
-                                data-original-title="Delete" 
-                                class="btn btn-danger btn-sm deleteData">
-                                <i class="fa fa-trash-o"></i>
-                            </a>
-                            <a 
-                                href="javascript:void(0)" 
-                                data-toggle="tooltip"  
-                                data-id="'.$item->nosp2dx.'" 
-                                data-original-title="Look" 
-                                class="btn btn-secondary btn-sm DataLook">
-                                <i class="fa fa-search"></i>
-                            </a>';
-                    return $a;
-                })
-                // bisa jadi dipakai
-                ->addColumn('switch', function($i){
-                    $a = $i->TGLVALID == null ? 0 : 1;
-                    $b = $a != 0 ? 'checked':'';
-                    $aa = $i->nobku == null ? 0 : 1;
-                    $bb = $aa != 0 ? 'disabled':'';
-                    $x = '
-                        <div class="form-check form-switch">
-                            <input '.$bb.' data-id="'.$i->nosp2dx.'" data-tgl="'.$i->TGLSP2D.'" data-bku="'.$i->nobku.'" class="form-check-input cari2" type="checkbox" role="switch" id="switch" '.$b.' >
-                        </div>
-                        ';
-                    return $x;
-                })
-                ->rawColumns(['action','switch'])
-                ->make(true);
-    }
-
-    public function getData2($id)
-    {
-        $data = Sp2diModel::join('DAFTUNIT as a','SP2D.UNITKEY','=','a.UNITKEY')
-                            ->join('tbl_sp2d_jef as b','SP2D.NOSP2D','=','b.NOSP2D')
-                            ->leftJoin('BKUSP2D as c','SP2D.NOSP2D','=','c.NOSP2D')
-                            ->select(['SP2D.*','a.NMUNIT','b.nosp2dx','b.nosp2d as no_sp2d','c.NOBKUSKPD as nobku'])
-                            ->where('SP2D.KDSTATUS','24')
-                            ->where('SP2D.UNITKEY','LIKE',"%$id%");
+        if ($request->UNITKEY != '') {
+            $data->where('SP2D.UNITKEY',$request->UNITKEY);
+        }
 
         return DataTables::of($data)
                 ->addIndexColumn()

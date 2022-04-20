@@ -19,7 +19,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::get('/dashaboard', 'DashaboardController@index')->name('dashaboard');
     Route::get('/dashaboard/listdata', 'DataController@index')->name('list-data');
     Route::get('/dashaboard/getdata', 'DataController@getData')->name('get-data');
-    Route::get('/dashaboard/getdatas/{id}', 'DataController@getData2')->name('get-datas');
+    // Route::get('/dashaboard/getdatas/{id}', 'DataController@getData2')->name('get-datas');
     Route::DELETE('/dashaboard/deletedata/{id}', 'DataController@deleteData')->name('delete-data');
     Route::post('/dashaboard/adddata', 'DataController@addData')->name('add-data');
     Route::get('/dashaboard/lookdata/{id}', 'DataController@lookData')->name('look-data');
