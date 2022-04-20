@@ -38,8 +38,10 @@ class DataController extends Controller
                             // ->get();
         $data = Sp2diModel::join('DAFTUNIT as a','SP2D.UNITKEY','=','a.UNITKEY')
                             ->join('tbl_sp2d_jef as b','SP2D.NOSP2D','=','b.NOSP2D')
-                            ->select(['SP2D.*','a.NMUNIT','b.nosp2dx','b.nosp2d as no_sp2d'])
+                            ->leftJoin('BKUSP2D as c','SP2D.NOSP2D','=','c.NOSP2D')
+                            ->select(['SP2D.*','a.NMUNIT','b.nosp2dx','b.nosp2d as no_sp2d','c.NOBKUSKPD as nobku'])
                             ->where('SP2D.KDSTATUS','24');
+        
 
         return DataTables::of($data)
                 ->addIndexColumn()
@@ -67,15 +69,16 @@ class DataController extends Controller
                 ->addColumn('switch', function($i){
                     $a = $i->TGLVALID == null ? 0 : 1;
                     $b = $a != 0 ? 'checked':'';
-                    $x = '<div class="media-body icon-state">
-                            <label class="switch">
-                                <input class="toggle-class" type="checkbox" data-id="'.$i->nosp2dx.'" '.$b.' data-toggle="toggle"><span class="switch-state"></span>
-                                
-                            </label>
-                        </div>';
+                    $aa = $i->nobku == null ? 0 : 1;
+                    $bb = $aa != 0 ? 'disabled':'';
+                    $x = '
+                        <div class="form-check form-switch">
+                            <input '.$bb.' data-id="'.$i->nosp2dx.'" data-tgl="'.$i->TGLSP2D.'" data-bku="'.$i->nobku.'" class="form-check-input cari2" type="checkbox" role="switch" id="switch" '.$b.' >
+                        </div>
+                        ';
                     return $x;
                 })
-                ->rawColumns(['action','select','switch'])
+                ->rawColumns(['action','switch'])
                 ->make(true);
     }
 
@@ -83,7 +86,8 @@ class DataController extends Controller
     {
         $data = Sp2diModel::join('DAFTUNIT as a','SP2D.UNITKEY','=','a.UNITKEY')
                             ->join('tbl_sp2d_jef as b','SP2D.NOSP2D','=','b.NOSP2D')
-                            ->select(['SP2D.*','a.NMUNIT','b.nosp2dx','b.nosp2d as no_sp2d'])
+                            ->leftJoin('BKUSP2D as c','SP2D.NOSP2D','=','c.NOSP2D')
+                            ->select(['SP2D.*','a.NMUNIT','b.nosp2dx','b.nosp2d as no_sp2d','c.NOBKUSKPD as nobku'])
                             ->where('SP2D.KDSTATUS','24')
                             ->where('SP2D.UNITKEY','LIKE',"%$id%");
 
@@ -111,28 +115,41 @@ class DataController extends Controller
                 })
                 // bisa jadi dipakai
                 ->addColumn('switch', function($i){
-                    $a = '
-                        <div class="media-body icon-state">
-                            <label class="switch">
-                                <input type="checkbox" checked><span class="switch-state"></span>
-                            </label>
-                        </div>';
-                    $b = '
-                        <div class="media-body icon-state">
-                            <label class="switch">
-                                <input type="checkbox"><span class="switch-state"></span>
-                            </label>
-                        </div>';
+                    $a = $i->TGLVALID == null ? 0 : 1;
+                    $b = $a != 0 ? 'checked':'';
+                    $aa = $i->nobku == null ? 0 : 1;
+                    $bb = $aa != 0 ? 'disabled':'';
                     $x = '
-                        <div class="media-body icon-state">
-                            <label class="switch">
-                                <input type="checkbox" checked><span class="switch-state"></span>
-                            </label>
-                        </div>';
+                        <div class="form-check form-switch">
+                            <input '.$bb.' data-id="'.$i->nosp2dx.'" data-tgl="'.$i->TGLSP2D.'" data-bku="'.$i->nobku.'" class="form-check-input cari2" type="checkbox" role="switch" id="switch" '.$b.' >
+                        </div>
+                        ';
                     return $x;
                 })
-                ->rawColumns(['action','select','switch'])
+                ->rawColumns(['action','switch'])
                 ->make(true);
+    }
+
+    public function updateValidData(Request $request)
+    {
+        $dd['TGLVALID'] = $request->a;
+        $id = $request->id;
+        $data = Sp2diModel::join('tbl_sp2d_jef as a','SP2D.NOSP2D','=','a.NOSP2D')
+                            ->select(['a.nosp2d'])
+                            ->where('a.nosp2dx',$id);
+        
+        // $data->TGLVALID = $request->a;
+
+        $data->update($dd);
+
+        return response()->json([
+            'title' => 'Update Data',
+            'success' => 'Success update validasi data'
+        ]);
+
+        // return response()->json([
+        //     $data
+        // ]);
     }
 
     public function deleteData($id)

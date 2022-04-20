@@ -32,7 +32,6 @@
                               <option value="WY">Wyoming</option>
                               <option value="PT">Peter</option> --}}
                           </select>
-                          <input class="test" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled">
                       </div>
                     </div>
 
@@ -388,12 +387,70 @@
           });
 
         });
-
-         $('.test').change(function() { 
-           var status = $(this).prop('checked') == true ? 1 : 0;  
-           var product_id = $(this).data('id');  
-           console.log('test')
-         }); 
+        
+        $('#ajax-data-object tbody').on('click', '#switch', function () {
+          if ($('#switch').data('bku') != '') {
+            $.notify({
+              title: 'Info',
+              message: 'Data tidak bisa batalkan karena sudah di BKU kan'
+            },{
+              type:'warning',
+              allow_dismiss:true,
+              newest_on_top:true ,
+              mouse_over:false,
+              showProgressbar:false,
+              spacing:25,
+              timer:2000,
+              placement:{
+                from:'top',
+                align:'right'
+              },
+              offset:{
+                x:30,
+                y:30
+              },
+              delay:1000 ,
+              z_index:10000,
+            });
+          } else {
+            var a = $(this).prop('checked') == true ? $(this).data('tgl') : '';
+            var id = $(this).data('id');  
+            
+            $.ajax({
+              type: "GET",
+              dataType: 'json',
+              url: '/dashaboard/updateValid',
+              data: {'a':a, 'id':id},
+              success: function(data){
+                $.notify({
+                    title: data.title,
+                    message: data.success
+                },
+                {
+                    type:'primary',
+                    allow_dismiss:true,
+                    newest_on_top:true ,
+                    mouse_over:false,
+                    showProgressbar:false,
+                    spacing:25,
+                    timer:2000,
+                    placement:{
+                      from:'top',
+                      align:'right'
+                    },
+                    offset:{
+                      x:30,
+                      y:30
+                    },
+                    delay:1000 ,
+                    z_index:10000,
+                });
+                
+                aa.draw();
+              }
+            });
+          }
+        }); 
 
         $('#createNewPost').click(function () {
           // $('#savedata').val("create-post");
@@ -408,7 +465,7 @@
         $('#savedata').click(function (e) {
           // console.log('tes')
           e.preventDefault();
-          $(this).html('Save');
+          $(this).html('Processing...');
       
           $.ajax({
             data: $('#postForm').serialize(),

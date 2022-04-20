@@ -28,6 +28,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::get('/dashaboard/ttd', 'DataController@TtdSp2d')->name('list-ttd');
     Route::get('/dashaboard/listSpm', 'DataController@listSpmSp2d')->name('list-spm');
     Route::get('/dashaboard/listUnit', 'DataController@listUnit')->name('list-unit');
+    Route::get('/dashaboard/updateValid', 'DataController@updateValidData')->name('update-valid');
 });
 
 Route::get('/', 'LandingPageController@index')->name('landing');
