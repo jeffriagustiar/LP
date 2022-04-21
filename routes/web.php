@@ -42,6 +42,10 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::get('/dataGU/listSpm', 'Sp2d\DataGUController@listSpmSp2d')->name('list-spmGU');
         Route::post('/dataGU/adddata', 'Sp2d\DataGUController@addData')->name('add-dataGU');
         Route::DELETE('/dataGU/deletedata', 'Sp2d\DataGUController@deleteData')->name('delete-dataGU');
+    
+    // Validasi
+    Route::get('/validasi', 'ValidasiController@index')->name('list-validasi');
+
 });
 
 Route::get('/', 'LandingPageController@index')->name('landing');

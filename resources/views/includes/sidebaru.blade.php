@@ -42,6 +42,14 @@
               </ul>
             </li>
 
+            <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="check-square"></i><span>Validasi</span></a>
+              <ul class="nav-submenu menu-content">
+                <li><a href="{{ route('list-validasi') }}">Validasi BUD</a></li>
+                {{-- <li><a href="{{ route('list-dataGU') }}">SP2D - GU</a></li> --}}
+                {{-- <li><a href="chart-widget.html">Chart</a></li> --}}
+              </ul>
+            </li>
+
             {{-- <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="layout"></i><span>Page layout</span></a>
               <ul class="nav-submenu menu-content">
                 <li><a href="box-layout.html">Boxed</a></li>
