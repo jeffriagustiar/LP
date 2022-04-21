@@ -394,30 +394,8 @@
         });
         
         $('#ajax-data-object tbody').on('click', '#switch', function () {
-          if ($('#switch').data('bku') != '') {
-            $.notify({
-              title: 'Info',
-              message: 'Data tidak bisa batalkan karena sudah di BKU kan'
-            },{
-              type:'warning',
-              allow_dismiss:true,
-              newest_on_top:true ,
-              mouse_over:false,
-              showProgressbar:false,
-              spacing:25,
-              timer:2000,
-              placement:{
-                from:'top',
-                align:'right'
-              },
-              offset:{
-                x:30,
-                y:30
-              },
-              delay:1000 ,
-              z_index:10000,
-            });
-          } else {
+          // console.log($(this).data('id'))
+          
             var a = $(this).prop('checked') == true ? $(this).data('tgl') : '';
             var id = $(this).data('id');  
             
@@ -432,7 +410,7 @@
                     message: data.success
                 },
                 {
-                    type:'primary',
+                    type: data.type,
                     allow_dismiss:true,
                     newest_on_top:true ,
                     mouse_over:false,
@@ -451,10 +429,8 @@
                     z_index:10000,
                 });
                 
-                aa.draw();
               }
             });
-          }
         }); 
 
         $('#createNewPost').click(function () {

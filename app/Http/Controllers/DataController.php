@@ -39,7 +39,7 @@ class DataController extends Controller
         $data = Sp2diModel::join('DAFTUNIT as a','SP2D.UNITKEY','=','a.UNITKEY')
                             ->join('tbl_sp2d_jef as b','SP2D.NOSP2D','=','b.NOSP2D')
                             ->leftJoin('BKUSP2D as c','SP2D.NOSP2D','=','c.NOSP2D')
-                            ->select(['SP2D.*','a.NMUNIT','b.nosp2dx','b.nosp2d as no_sp2d','c.NOBKUSKPD as nobku'])
+                            ->select(['SP2D.*','a.NMUNIT','b.nosp2dx','b.nosp2d as no_sp2d','c.NOBKUSKPD as nobku','c.NOSP2D as n_2d'])
                             ->where('SP2D.KDSTATUS','24');
         if ($request->UNITKEY != '') {
             $data->where('SP2D.UNITKEY',$request->UNITKEY);
@@ -71,11 +71,11 @@ class DataController extends Controller
                 ->addColumn('switch', function($i){
                     $a = $i->TGLVALID == null ? 0 : 1;
                     $b = $a != 0 ? 'checked':'';
-                    $aa = $i->nobku == null ? 0 : 1;
-                    $bb = $aa != 0 ? 'disabled':'';
+                    $aa = $i->nobku == null ? 1 : 0;
+                    $bb = $aa == 0 ? 'disabled':'';
                     $x = '
                         <div class="form-check form-switch">
-                            <input '.$bb.' data-id="'.$i->nosp2dx.'" data-tgl="'.$i->TGLSP2D.'" data-bku="'.$i->nobku.'" class="form-check-input cari2" type="checkbox" role="switch" id="switch" '.$b.' >
+                            <input '.$bb.' data-id="'.$i->nosp2dx.'" data-tgl="'.$i->TGLSP2D.'" class="form-check-input cari2" type="checkbox" role="switch" id="switch" '.$b.' >
                         </div>
                         ';
                     return $x;
@@ -89,20 +89,32 @@ class DataController extends Controller
         $dd['TGLVALID'] = $request->a;
         $id = $request->id;
         $data = Sp2diModel::join('tbl_sp2d_jef as a','SP2D.NOSP2D','=','a.NOSP2D')
-                            ->select(['a.nosp2d'])
+                            ->leftJoin('BKUSP2D as c','SP2D.NOSP2D','=','c.NOSP2D')
+                            ->select(['a.nosp2d as n05p24','c.NOBKUSKPD as nobku'])
                             ->where('a.nosp2dx',$id);
-        
-        // $data->TGLVALID = $request->a;
+                            // ->first();
+        $data2 = $data->first();
 
-        $data->update($dd);
+        if ($data2->nobku == null) {
+            $a = 'Update Data';
+            $b = 'Success update validasi data';
+            $c = 'primary';
+            $data->update($dd);
+        }else{
+            $a = 'Update Data';
+            $b = 'Tidak bisa dibatalkan karena sudah di BKU kan';
+            $c = 'warning';
+        }
+
 
         return response()->json([
-            'title' => 'Update Data',
-            'success' => 'Success update validasi data'
+            'title' => $a,
+            'success' => $b,
+            'type' => $c
         ]);
 
         // return response()->json([
-        //     $data
+        //     $a
         // ]);
     }
 
