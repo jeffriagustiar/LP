@@ -224,7 +224,8 @@ class DataController extends Controller
 
         return response()->json([
             'title' => 'Add Data',
-            'success' => 'Success tambah data'
+            'success' => 'Success tambah data',
+            'type' => 'primary'
         ]);
     }
 

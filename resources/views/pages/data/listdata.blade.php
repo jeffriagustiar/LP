@@ -312,6 +312,32 @@
     <script src="{{ url('/assets/js/toggle/bootstrap-toggle.min.js') }}"></script>
 
     <script>
+
+      function notif(name,msg,type){
+        $.notify({
+          title: name,//data.title,
+          message: msg,//data.success
+        },{
+          type: type,//data.type,
+          allow_dismiss:true,
+          newest_on_top:true ,
+          mouse_over:false,
+          showProgressbar:false,
+          spacing:25,
+          timer:2000,
+          placement:{
+            from:'top',
+            align:'right'
+          },
+          offset:{
+            x:30,
+            y:30
+          },
+          delay:1000 ,
+          z_index:10000,
+        });
+      }
+
       $(function () {
 
         $.ajaxSetup({
@@ -405,29 +431,7 @@
               url: '/dashaboard/updateValid',
               data: {'a':a, 'id':id},
               success: function(data){
-                $.notify({
-                    title: data.title,
-                    message: data.success
-                },
-                {
-                    type: data.type,
-                    allow_dismiss:true,
-                    newest_on_top:true ,
-                    mouse_over:false,
-                    showProgressbar:false,
-                    spacing:25,
-                    timer:2000,
-                    placement:{
-                      from:'top',
-                      align:'right'
-                    },
-                    offset:{
-                      x:30,
-                      y:30
-                    },
-                    delay:1000 ,
-                    z_index:10000,
-                });
+                notif(data.title,data.success,data.type)
                 
               }
             });
@@ -458,29 +462,7 @@
                 $('#postForm').trigger("reset");
                 $('#addData').modal('hide');
 
-                $.notify({
-                    title: data.title,
-                    message: data.success
-                },
-                {
-                    type:'primary',
-                    allow_dismiss:true,
-                    newest_on_top:true ,
-                    mouse_over:false,
-                    showProgressbar:false,
-                    spacing:25,
-                    timer:2000,
-                    placement:{
-                      from:'top',
-                      align:'right'
-                    },
-                    offset:{
-                      x:30,
-                      y:30
-                    },
-                    delay:1000 ,
-                    z_index:10000,
-                });
+                notif(data.title,data.success,data.type)
                 
                 table.draw();
                 table2.draw();
@@ -626,32 +608,10 @@
                 type: "DELETE",
                 url: '/dashaboard/deletedata/'+id,
                 success: function (data) {
-                    $.notify({
-                        title: data.title,
-                        message: data.success
-                    },
-                    {
-                        type: data.type,
-                        allow_dismiss:true,
-                        newest_on_top:true ,
-                        mouse_over:false,
-                        showProgressbar:false,
-                        spacing:25,
-                        timer:2000,
-                        placement:{
-                          from:'top',
-                          align:'right'
-                        },
-                        offset:{
-                          x:30,
-                          y:30
-                        },
-                        delay:1000 ,
-                        z_index:10000,
-                    });
-                    table.draw();
-                    table2.draw();
-                    aa.draw();
+                  notif(data.title,data.success,data.type)
+                  table.draw();
+                  table2.draw();
+                  aa.draw();
                 },
                 error: function (data) {
                     console.log('Error:', data);
