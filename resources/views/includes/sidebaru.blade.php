@@ -37,7 +37,7 @@
             <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="layers"></i><span>SP2D</span></a>
               <ul class="nav-submenu menu-content">
                 <li><a href="{{ route('list-data') }}">SP2D - LS</a></li>
-                <li><a href="{{ route('list-data') }}">SP2D - GU</a></li>
+                <li><a href="{{ route('list-dataGU') }}">SP2D - GU</a></li>
                 {{-- <li><a href="chart-widget.html">Chart</a></li> --}}
               </ul>
             </li>

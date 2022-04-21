@@ -17,18 +17,31 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['role:user']], function () {
     
     Route::get('/dashaboard', 'DashaboardController@index')->name('dashaboard');
-    Route::get('/dashaboard/listdata', 'DataController@index')->name('list-data');
-    Route::get('/dashaboard/getdata', 'DataController@getData')->name('get-data');
-    // Route::get('/dashaboard/getdatas/{id}', 'DataController@getData2')->name('get-datas');
-    Route::DELETE('/dashaboard/deletedata/{id}', 'DataController@deleteData')->name('delete-data');
-    Route::post('/dashaboard/adddata', 'DataController@addData')->name('add-data');
-    Route::get('/dashaboard/lookdata/{id}', 'DataController@lookData')->name('look-data');
-    Route::get('/dashaboard/lookdatapotongan/{id}', 'DataController@lookDataPotongan')->name('look-data-potongan');
-    Route::get('/dashaboard/lookdatapajak/{id}', 'DataController@lookDataPajak')->name('look-data-pajak');
+
+    //SP2D
     Route::get('/dashaboard/ttd', 'DataController@TtdSp2d')->name('list-ttd');
-    Route::get('/dashaboard/listSpm', 'DataController@listSpmSp2d')->name('list-spm');
-    Route::get('/dashaboard/listUnit', 'DataController@listUnit')->name('list-unit');
     Route::get('/dashaboard/updateValid', 'DataController@updateValidData')->name('update-valid');
+    Route::get('/dashaboard/listUnit', 'DataController@listUnit')->name('list-unit');
+
+        //SP2D - LS
+        Route::get('/dashaboard/listdata', 'DataController@index')->name('list-data');
+        Route::get('/dashaboard/getdata', 'DataController@getData')->name('get-data');
+        Route::DELETE('/dashaboard/deletedata/{id}', 'DataController@deleteData')->name('delete-data');
+        Route::post('/dashaboard/adddata', 'DataController@addData')->name('add-data');
+        Route::get('/dashaboard/lookdata/{id}', 'DataController@lookData')->name('look-data');
+        Route::get('/dashaboard/lookdatapotongan/{id}', 'DataController@lookDataPotongan')->name('look-data-potongan');
+        Route::get('/dashaboard/lookdatapajak/{id}', 'DataController@lookDataPajak')->name('look-data-pajak');
+        Route::get('/dashaboard/listSpm', 'DataController@listSpmSp2d')->name('list-spm');
+
+        //SP2D - GU
+        Route::get('/dataGU', 'Sp2d\DataGUController@index')->name('list-dataGU');
+        Route::get('/dataGU/getdata', 'Sp2d\DataGUController@getData')->name('get-dataGU');
+        Route::get('/dataGU/lookdata', 'Sp2d\DataGUController@lookData')->name('look-dataGU');
+        Route::get('/dataGU/lookdatapotongan', 'Sp2d\DataGUController@lookDataPotongan')->name('look-data-potonganGU');
+        Route::get('/dataGU/lookdatapajak', 'Sp2d\DataGUController@lookDataPajak')->name('look-data-pajakGU');
+        Route::get('/dataGU/listSpm', 'Sp2d\DataGUController@listSpmSp2d')->name('list-spmGU');
+        Route::post('/dataGU/adddata', 'Sp2d\DataGUController@addData')->name('add-dataGU');
+        Route::DELETE('/dataGU/deletedata', 'Sp2d\DataGUController@deleteData')->name('delete-dataGU');
 });
 
 Route::get('/', 'LandingPageController@index')->name('landing');

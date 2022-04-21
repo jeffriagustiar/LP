@@ -1,7 +1,7 @@
 @extends('layouts.appu')
 
 @section('title')
-    SP2D - LS
+    SP2D - GU
 @endsection
 
 @push('before-style')
@@ -11,9 +11,6 @@
   <!-- Plugins select2 start-->
   <link rel="stylesheet" type="text/css" href="{{ url('/assets/css/select2.css') }}">
    <link href="{{ url('/assets/css/bootstrap-toggle.min.css') }}" rel="stylesheet">
-
-
-  {{-- <link rel="stylesheet" href="{{ url('/assets/css/summernote/summernote-bs4.min.css') }}"> --}}
   <!-- Plugins select2 Ends-->
 @endpush
 
@@ -22,15 +19,12 @@
               <div class="col-sm-12">
                 <div class="card">
                   <div class="card-header">
-                    <h5>SP2D - LS</h5>
+                    <h5>SP2D - GU</h5>
                     <a class="btn btn-primary" href="javascript:void(0)" id="createNewPost"> Add New </a>
                     <br><br>
                     <div class="col-sm-2">
                       <div class="mb-3">
                           <select id="cari" name="cari" class="cari js-example-basic-single col-sm-2 ">
-                              {{-- <option value="AL">Alabama</option>
-                              <option value="WY">Wyoming</option>
-                              <option value="PT">Peter</option> --}}
                           </select>
                       </div>
                     </div>
@@ -50,16 +44,6 @@
                             <th>Action</th>
                           </tr>
                         </thead>
-                        {{-- <tfoot>
-                          <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                          </tr>
-                        </tfoot> --}}
                       </table>
                     </div>
                   </div>
@@ -119,7 +103,6 @@
               <div class="input-group">
                 <input id="nospm" name="nospm" class="form-control btn-square" placeholder="placeholder" type="text"  readonly>
                 <span class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</span>
-                {{-- <button href="javascript:void(0)" class="input-group-text btn btn-primary btn-right" data-bs-toggle="modal" data-bs-target=".data-list" id="dataList">append</button> --}}
               </div>
             </div>
           </div>
@@ -303,11 +286,8 @@
 @push('after-script')
     
     <script src="{{ url('/assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
-    {{-- <script src="{{ url('/assets/js/datatable/datatables/datatable.custom.js') }}"></script> --}}
     <!-- Plugins JS Select2 start-->
     <script src="{{ url('/assets/js/select2/select2.full.min.js') }}"></script>
-    {{-- <script src="{{ url('/assets/js/select2/select2-custom.js') }}"></script> --}}
-    {{-- <script src="{{ url('/assets/js/summernote/summernote-bs4.min.js') }}"></script> --}}
     <!-- Plugins JS Select2 Ends-->
     <script src="{{ url('/assets/js/toggle/bootstrap-toggle.min.js') }}"></script>
 
@@ -315,10 +295,10 @@
 
       function notif(name,msg,type){
         $.notify({
-          title: name,//data.title,
-          message: msg,//data.success
+          title: name,
+          message: msg,
         },{
-          type: type,//data.type,
+          type: type,
           allow_dismiss:true,
           newest_on_top:true ,
           mouse_over:false,
@@ -371,7 +351,7 @@
           processing: true,
           serverSide: true,
           order: [[4,'asc']],
-          ajax: '/dashaboard/getdata',
+          ajax: '/dataGU/getdata',
           columns: [
             { data: 'NOSP2D', name:'SP2D.NOSP2D'}, 
             { data: 'NMUNIT', name:'a.NMUNIT'}, 
@@ -397,7 +377,6 @@
             serverSide: true,
             destroy: true,
             order: [[4,'asc']],
-            // ajax: '/dashaboard/getdatas/'+x,
             ajax: {
               url:'/dashaboard/getdata/',
               type:'GET',
@@ -422,8 +401,6 @@
         });
         
         $('#ajax-data-object tbody').on('click', '#switch', function () {
-          // console.log($(this).data('id'))
-          
             var a = $(this).prop('checked') == true ? $(this).data('tgl') : '';
             var id = $(this).data('id');  
             
@@ -440,23 +417,18 @@
         }); 
 
         $('#createNewPost').click(function () {
-          // $('#savedata').val("create-post");
-          // $('#id').val('');
-          // $('#postForm').trigger("reset");
-          // $('#modelHeading').html("Create New Post");
           $('#addData').modal('show');
         });
 
         
         
         $('#savedata').click(function (e) {
-          // console.log('tes')
           e.preventDefault();
           $(this).html('Processing...');
       
           $.ajax({
             data: $('#postForm').serialize(),
-            url: '/dashaboard/adddata',
+            url: '/dataGU/adddata',
             type: "POST",
             dataType: 'json',
             success: function (data) {
@@ -483,7 +455,6 @@
         });
 
         $('#tableListTtd').DataTable({
-          // paging:   false,
           ordering: false,
           info:     false,
           processing: true,
@@ -502,7 +473,6 @@
           var select_id = $(this).data("id");
           var select_id2 = $(this).data("p2");
           console.log(select_id)
-          // $('#addData').find('.modal-body #tes123').append(select_id);
           $('#addData').find('.modal-body #idttd').val(select_id);
           $('#addData').find('.modal-body #ttd').val(select_id2);
           $('#listTtd').modal('hide');
@@ -516,7 +486,7 @@
         var table2 = $('#tableListData').DataTable({
           processing: true,
           serverSide: true,
-          ajax: '/dashaboard/listSpm',
+          ajax: '/dataGU/listSpm',
           columns: [
             { data: 'NOSPM', name:'ANTARBYR.NOSPM'}, 
             { data: 'NMUNIT', name:'b.NMUNIT'}, 
@@ -527,7 +497,6 @@
         });
 
         $('body').on('click', '.selectDataSpm', function () {
-          // $('#addData').find('.modal-body #tes123').append(data);
           $('#addData').find('.modal-body #nospm').val($(this).data("id"));
           $('#addData').find('.modal-body #nospd').val($(this).data("d2"));
           $('#addData').find('.modal-body #keperluan').val($(this).data("d3"));
@@ -545,14 +514,8 @@
         
         $('#ajax-data-object tbody').on('click', '.DataLook', function () {
           let id = $('.DataLook').data("id");
-          // let id = $(this).data("id"); //option
-          // var select_id2 = $(this).data("p2");
-          // $('#lookData').find('.modal-body3 #id').val(id);
           $('#id').val(id);
-          // console.log(id)
           $('#lookData').modal('show');
-
-          // console.log(id);
 
           $('#tableLookData').DataTable({
             processing: true,
@@ -560,7 +523,11 @@
             destroy: true,
             pageLength: 5,
             lengthMenu: [5, 10],
-            ajax: '/dashaboard/lookdata/'+id,
+            ajax: {
+              url:'/dataGU/lookdata',
+              type:'GET',
+              data: {'id':id}
+            },
             columns: [
               { data: 'NOSP2D', name:'SP2DDETR.NOSP2D'}, 
               { data: 'NMKEGUNIT', name:'b.NMKEGUNIT'}, 
@@ -576,7 +543,11 @@
             destroy: true,
             pageLength: 5,
             lengthMenu: [5, 10],
-            ajax: '/dashaboard/lookdatapotongan/'+id,
+            ajax: {
+              url : '/dataGU/lookdatapotongan',
+              type : 'GET',
+              data : {'id':id}
+            },
             columns: [
               { data: 'NOSP2D', name:'SP2DDETB.NOSP2D'}, 
               { data: 'NMPER', name:'b.NMPER'}, 
@@ -591,7 +562,12 @@
             destroy: true,
             pageLength: 5,
             lengthMenu: [5, 10],
-            ajax: '/dashaboard/lookdatapajak/'+id,
+            // ajax: '/dashaboard/lookdatapajak/'+id,
+            ajax: {
+              url : '/dataGU/lookdatapajak',
+              type : 'GET',
+              data : {'id':id}
+            },
             columns: [
               { data: 'NOSP2D', name:'SP2DPJK.NOSP2D'},
               { data: 'NMPAJAK', name:'b.NMPAJAK'},
@@ -608,7 +584,8 @@
           // console.log(id)
             $.ajax({
                 type: "DELETE",
-                url: '/dashaboard/deletedata/'+id,
+                url: '/dataGU/deletedata',
+                data: {'id':id},
                 success: function (data) {
                   notif(data.title,data.success,data.type)
                   table.draw();

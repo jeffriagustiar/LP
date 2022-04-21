@@ -307,6 +307,7 @@ class DataController extends Controller
         $data = SpmModel::leftJoin('SP2D as a','ANTARBYR.NOSPM','=','a.NOSPM')
                             ->join('DAFTUNIT as b','ANTARBYR.UNITKEY','=','b.UNITKEY')
                             ->select(['ANTARBYR.*','b.NMUNIT'])
+                            ->where('ANTARBYR.KDSTATUS','24')
                             ->whereNull('a.NOSPM');
 
         return DataTables::of($data)
