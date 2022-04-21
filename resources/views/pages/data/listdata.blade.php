@@ -321,7 +321,7 @@
         });
 
         $('.cari').select2({
-           placeholder: 'Select',
+           placeholder: 'Nama SKPD',
            minimumInputLength:3,
            ajax: {
             url: '/dashaboard/listUnit',
@@ -621,33 +621,6 @@
 
         $('body').on('click', '.deleteData', function () {
           var id = $(this).data("id");
-          var d1 = $(this).data("d1");
-          // console.log(d1)
-          // confirm("Are You sure want to delete !");
-          if (d1 != ''){
-            $.notify({
-              title: 'Info',
-              message: 'Data tidak bisa dihapus karena validasi masih ada'
-            },{
-              type:'warning',
-              allow_dismiss:true,
-              newest_on_top:true ,
-              mouse_over:false,
-              showProgressbar:false,
-              spacing:25,
-              timer:2000,
-              placement:{
-                from:'top',
-                align:'right'
-              },
-              offset:{
-                x:30,
-                y:30
-              },
-              delay:1000 ,
-              z_index:10000,
-            });
-          }else{
           // console.log(id)
             $.ajax({
                 type: "DELETE",
@@ -658,7 +631,7 @@
                         message: data.success
                     },
                     {
-                        type:'primary',
+                        type: data.type,
                         allow_dismiss:true,
                         newest_on_top:true ,
                         mouse_over:false,
@@ -684,7 +657,6 @@
                     console.log('Error:', data);
                 }
             });
-          }
         });
       });
     </script>

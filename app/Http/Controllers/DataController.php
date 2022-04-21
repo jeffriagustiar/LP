@@ -52,7 +52,6 @@ class DataController extends Controller
                                 href="javascript:void(0)" 
                                 data-toggle="tooltip"  
                                 data-id="'.$item->nosp2dx.'" 
-                                data-d1="'.$item->TGLVALID.'" 
                                 data-original-title="Delete" 
                                 class="btn btn-danger btn-sm deleteData">
                                 <i class="fa fa-trash-o"></i>
@@ -112,37 +111,43 @@ class DataController extends Controller
             'success' => $b,
             'type' => $c
         ]);
-
-        // return response()->json([
-        //     $a
-        // ]);
     }
 
     public function deleteData($id)
     {
         $data = Sp2dModel::join('tbl_sp2d_jef as a','SP2DDETR.NOSP2D','=','a.NOSP2D')
-                            ->select(['a.nosp2d'])
+                            ->select(['a.nosp2d as nnd'])
                             ->where('a.nosp2dx',$id);
-        $data->delete();
-
         $data2 = PotonganSp2dModel::join('tbl_sp2d_jef as a','SP2DDETB.NOSP2D','=','a.NOSP2D')
-                            ->select(['a.nosp2d'])
+                            ->select(['a.nosp2d as nnnd'])
                             ->where('a.nosp2dx',$id);
-        $data2->delete();
-
         $data3 = PajakSp2dModel::join('tbl_sp2d_jef as a','SP2DPJK.NOSP2D','=','a.NOSP2D')
-                            ->select(['a.nosp2d'])
+                            ->select(['a.nosp2d as nnnnd'])
                             ->where('a.nosp2dx',$id);
-        $data3->delete();
-
         $dataP = Sp2diModel::join('tbl_sp2d_jef as a','SP2D.NOSP2D','=','a.NOSP2D')
-                            ->select(['a.nosp2d'])
+                            ->select(['a.nosp2d as nd','SP2D.TGLVALID as tgl'])
                             ->where('a.nosp2dx',$id);
-        $dataP->delete();
+        
+        $x =  $dataP->first();
+
+        if ($x->tgl == null) {
+            $a = 'Delete Data';
+            $b = 'Success delete data';
+            $c = 'primary';
+            $data->delete();
+            $data2->delete();
+            $data3->delete();
+            $dataP->delete();
+        }else{
+            $a = 'Delete Data';
+            $b = 'Data tidak bisa dihapus karena validasi masih ada';
+            $c = 'warning';
+        }
 
         return response()->json([
-            'title' => 'Hapus Data',
-            'success' => 'Success hapus data'
+            'title' => $a,
+            'success' => $b,
+            'type' => $c
         ]);
     }
 
@@ -221,8 +226,6 @@ class DataController extends Controller
             'title' => 'Add Data',
             'success' => 'Success tambah data'
         ]);
-
-        // return response()->json($Pdetail);
     }
 
     public function lookData($id)
