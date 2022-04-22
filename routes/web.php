@@ -48,6 +48,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::get('/validasi/listValid', 'ValidasiController@listValidasi')->name('list-valid');
     Route::get('/validasi/listSValid', 'ValidasiController@listSValidasi')->name('list-Svalid');
     Route::get('/validasi/listPValid', 'ValidasiController@listPValidasi')->name('list-Pvalid');
+    Route::get('/validasi/NonValid', 'ValidasiController@listNonValidasi')->name('list-Nonvalid');
 
 });
 

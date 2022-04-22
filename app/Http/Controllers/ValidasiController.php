@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Validasi\JValidModel;
 use App\Validasi\ListValidasiModel;
 use App\Validasi\ListValidasiPModel;
+use App\Validasi\StsValidasiPModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -64,6 +65,17 @@ class ValidasiController extends Controller
             $data->where('BKUK.NOBBANTU',$request->id);
         }
         
+        return DataTables::of($data)->make(true);
+    }
+
+    public function listNonValidasi()
+    {
+        $data = StsValidasiPModel::leftJoin('BKUD as a','STS.NOSTS','=','a.NOSTS')
+                                    ->join('BKBKAS as b','STS.NOBBANTU','=','b.NOBBANTU')
+                                    ->select(['STS.*','b.NMBKAS','a.NOSTS as n_sts'])
+                                    ->whereNull('a.NOSTS')
+                                    ->whereNotNull('STS.TGLVALID');
+
         return DataTables::of($data)->make(true);
     }
 }
