@@ -122,6 +122,22 @@
         $('.cari').select2({
            placeholder: 'Nama Validasi',
            minimumInputLength:3,
+           ajax : {
+             url : '/validasi/listValid',
+             dataType : 'json',
+             delay: 250,
+             processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.NMBKAS,
+                            id: item.NOBBANTU
+                        }
+                    })
+                };
+            },
+            cache: true
+           }
         });
 
         $('#tableBValidasi').DataTable({
