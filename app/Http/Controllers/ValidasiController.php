@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Validasi\JValidModel;
+use App\Validasi\ListValidasiModel;
+use App\Validasi\ListValidasiPModel;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ValidasiController extends Controller
 {
@@ -24,12 +27,43 @@ class ValidasiController extends Controller
         if ($request->has('q')) {
             $s = $request->q;
             $data = JValidModel::select('NOBBANTU','NMBKAS')
-                                ->where('NMUNIT','LIKE',"%$s%")
+                                ->where('NMBKAS','LIKE',"%$s%")
                                 ->get();
         }
 
-        // $data = JValidModel::all();
-
         return response()->json($data);
+    }
+
+    public function listSValidasi(Request $request)
+    {
+        $data =  ListValidasiModel::join('DAFTUNIT as a','BKUD.UNITKEY','=','a.UNITKEY')
+                                    ->join('STS as b','BKUD.NOSTS','=','b.NOSTS')
+                                    ->select([
+                                        'BKUD.NOBUKAS','a.NMUNIT','BKUD.TGLKAS',
+                                        'BKUD.TGLVALID','BKUD.URAIAN','b.NOSTS',
+                                        'BKUD.NOBUKTIKAS'
+                                    ]);
+        if ($request->id != null ) {
+            $data->where('BKUD.NOBBANTU',$request->id);
+        }
+        
+        return DataTables::of($data)->make(true);
+    }
+    
+
+    public function listPValidasi(Request $request)
+    {
+        $data =  ListValidasiPModel::join('DAFTUNIT as a','BKUK.UNITKEY','=','a.UNITKEY')
+                                    ->join('SP2D as b','BKUK.NOSP2D','=','b.NOSP2D')
+                                    ->select([
+                                        'BKUK.NOBUKAS','a.NMUNIT','BKUK.TGLKAS',
+                                        'BKUK.TGLVALID','BKUK.URAIAN','b.NOSP2D',
+                                        'BKUK.NOBUKTIKAS'
+                                    ]);
+        if ($request->id != null ) {
+            $data->where('BKUK.NOBBANTU',$request->id);
+        }
+        
+        return DataTables::of($data)->make(true);
     }
 }
