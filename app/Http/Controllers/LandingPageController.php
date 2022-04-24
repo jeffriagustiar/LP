@@ -74,4 +74,32 @@ class LandingPageController extends Controller
 
         // return Query($data);
     }
+
+    public function dataApbd()
+    {
+        $datap = [0,723204712708,818001019824,708900288188,682401082138,0];
+        $datab = [0,794830171158,876370302788,750947870902,747200734949,0];
+        $datapem = [0,106963597218,69669282964,42047582714,64799652811,0];
+        $a = [
+            'pendapatan' => $datap,
+            'belanja' => $datab,
+            'pembiayaan' => $datapem
+        ];
+
+        return response()->json($a);
+    }
+
+    public function dataRealisasiApbd()
+    {
+        $datap = [0,708532769024,796837014305,717701105715,677296933413,0];
+        $datab = [0,716396747761,805939541097,702910943145,677726610137,0];
+        $datapem = [0,106963597218,79735967331,59945152495,74735915027,0];
+        $a = [
+            'pendapatan' => $datap,
+            'belanja' => $datab,
+            'pembiayaan' => $datapem
+        ];
+
+        return response()->json($a);
+    }
 }

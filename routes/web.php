@@ -57,6 +57,8 @@ Route::get('/sum1', 'LandingPageController@sum1')->name('sum1');
 Route::get('/sum2', 'LandingPageController@sum2')->name('sum2');
 Route::get('/datachart', 'LandingPageController@dataChart')->name('datachart');
 Route::get('/dataload', 'LandingPageController@dataload')->name('dataload');
+Route::get('/dataApbd', 'LandingPageController@dataApbd')->name('dataApbd');
+Route::get('/dataRApbd', 'LandingPageController@dataRealisasiApbd')->name('dataRApbd');
 Auth::routes();
 
 Route::group(['middleware' => ['role:admin']], function () {
