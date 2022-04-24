@@ -55,7 +55,7 @@ viho - Premium Admin Template
       </div>
     </div>
             
-            <div class="col-xl-6 box-col-12 des-xl-50 dashboard-sec">
+            <div class="col-xl-7 box-col-12 des-xl-50 dashboard-sec">
               <div class="card income-card">
                 <div class="card-header pb-0">
                   <div class="header-top d-sm-flex align-items-center">
@@ -82,19 +82,15 @@ viho - Premium Admin Template
               </div>
             </div>
     
-    <div class="col-xl-6 box-col-12 des-xl-50">
+    <div class="col-xl-12 box-col-16 des-xl-500">
       <div class="row">
         
         <div class="col-xl-6 col-100 box-col-6 des-xl-100">
           <div class="card latest-update-sec">
             <div class="card-header">
               <div class="header-top d-sm-flex align-items-center">
-                <h5>Latest activity</h5>
+                <h5>APBD 2017 s/d 2022</h5>
                 <div class="center-content">
-                  <ul class="week-date">
-                    <li class="font-primary">Today</li>
-                    <li>Month                                 </li>
-                  </ul>
                 </div>
                 <div class="setting-list">
                   <ul class="list-unstyled setting-option">
@@ -111,55 +107,101 @@ viho - Premium Admin Template
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordernone dataload" id="dataload">
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="media">
-                          <div class="media-body"><span id="data1"></span> {{-- data sini --}}
-                            <p id="dataw1"></p> {{-- data waktu sini --}}
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="media">
-                          <div class="media-body"><span id="data2"></span>
-                            <p id="dataw2"></p>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="media">
-                          <div class="media-body"><span id="data3"></span>
-                            <p id="dataw3"></p>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="media">
-                          <div class="media-body"><span id="data4"></span>
-                            <p id="dataw4"></p>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="media">
-                          <div class="media-body"><span id="data5"></span>
-                            <p id="dataw5"></p>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="card-body p-0">
+                    <div id="apbd-chart"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-100 box-col-6 des-xl-100">
+          <div class="card latest-update-sec">
+            <div class="card-header">
+              <div class="header-top d-sm-flex align-items-center">
+                <h5>APBD 2017 s/d 2022</h5>
+                <div class="center-content">
+                </div>
+                <div class="setting-list">
+                  <ul class="list-unstyled setting-option">
+                    <li>
+                      <div class="setting-primary"><i class="icon-settings"></i></div>
+                    </li>
+                    <li><i class="icofont icofont-maximize full-card font-primary"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card font-primary"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card font-primary"></i></li>
+                    <li><i class="icofont icofont-error close-card font-primary">                                </i></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <div class="card-body p-0">
+                    <div id="apbd-chart2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-xl-6 col-100 box-col-6 des-xl-100">
+          <div class="card latest-update-sec">
+            <div class="card-header">
+              <div class="header-top d-sm-flex align-items-center">
+                <h5>Target & Realisasi Pendapatan Tahun (2022) </h5>
+                <div class="center-content">
+                </div>
+                <div class="setting-list">
+                  <ul class="list-unstyled setting-option">
+                    <li>
+                      <div class="setting-primary"><i class="icon-settings"></i></div>
+                    </li>
+                    <li><i class="icofont icofont-maximize full-card font-primary"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card font-primary"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card font-primary"></i></li>
+                    <li><i class="icofont icofont-error close-card font-primary">                                </i></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <div class="card-body p-0">
+                    <div id="TRPT"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-xl-6 col-100 box-col-6 des-xl-100">
+          <div class="card latest-update-sec">
+            <div class="card-header">
+              <div class="header-top d-sm-flex align-items-center">
+                <h5>Target & Realisasi Belanja Tahun (2022) </h5>
+                <div class="center-content">
+                </div>
+                <div class="setting-list">
+                  <ul class="list-unstyled setting-option">
+                    <li>
+                      <div class="setting-primary"><i class="icon-settings"></i></div>
+                    </li>
+                    <li><i class="icofont icofont-maximize full-card font-primary"></i></li>
+                    <li><i class="icofont icofont-minus minimize-card font-primary"></i></li>
+                    <li><i class="icofont icofont-refresh reload-card font-primary"></i></li>
+                    <li><i class="icofont icofont-error close-card font-primary">                                </i></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <div class="card-body p-0">
+                    <div id="TRBT"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -178,6 +220,9 @@ viho - Premium Admin Template
 @endsection
 
 @push('after-script')
+    <script src="{{ url('/assets/js/chart/apex-chart/apex-chart.js') }}"></script>
+    <script src="{{ url('/assets/js/chart/apex-chart/stock-prices.js') }}"></script>
+    <script src="{{ url('/assets/js/chart/apex-chart/chart-custom.js') }}"></script>
 
 <script>
 
@@ -297,41 +342,266 @@ function loadDataChart(){
   })
 }
 
-function dataload() {
-  $.ajax({
-    url : '/dataload',
-    type : 'GET',
-    dataType : 'json',
-    success : function(data){
-      // for(let i=0; i<data.length; i++){
-         document.getElementById("data1").innerHTML =("Nomor STS : "+data[0].NOSTS+" Nilai : "+dollarUS.format(data[0].NILAI));
-         document.getElementById("dataw1").innerHTML =("Pada : "+data[0].TGLSTS);
-         document.getElementById("data2").innerHTML =("Nomor STS : "+data[1].NOSTS+" Nilai : "+dollarUS.format(data[1].NILAI));
-         document.getElementById("dataw2").innerHTML =("Pada : "+data[1].TGLSTS);
-         document.getElementById("data3").innerHTML =("Nomor STS : "+data[2].NOSTS+" Nilai : "+dollarUS.format(data[2].NILAI));
-         document.getElementById("dataw3").innerHTML =("Pada : "+data[2].TGLSTS);
-         document.getElementById("data4").innerHTML =("Nomor STS : "+data[3].NOSTS+" Nilai : "+dollarUS.format(data[3].NILAI));
-         document.getElementById("dataw4").innerHTML =("Pada : "+data[3].TGLSTS);
-         document.getElementById("data5").innerHTML =("Nomor STS : "+data[4].NOSTS+" Nilai : "+dollarUS.format(data[4].NILAI));
-         document.getElementById("dataw5").innerHTML =("Pada : "+data[4].TGLSTS);
-      // }
-    }
-  })
+
+var columnChart = {
+    chart: {
+        height:350,
+        type: 'bar',
+        toolbar:{
+          show: false
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            endingShape: 'rounded',
+            columnWidth: '55%',
+        },
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+    },
+    series: [{
+        name: 'Net Profit',
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+    }, {
+        name: 'Revenue',
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+    }, {
+        name: 'Free Cash Flow',
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 120]
+    }],
+    xaxis: {
+        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+    },
+    yaxis: {
+        title: {
+            text: 'Rp. '
+        }
+    },
+    fill: {
+        opacity: 1
+
+    },
+    tooltip: {
+        y: {
+            formatter: function (val) {
+                return "Rp. " + val + ""
+            }
+        }
+    },
+    colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary, '#222222']
 }
+
+var apbd = new ApexCharts(
+    document.querySelector("#apbd-chart"),
+    columnChart
+);
+
+apbd.render();
+
+var columnChart2 = {
+    chart: {
+        height:350,
+        type: 'bar',
+        toolbar:{
+          show: false
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            endingShape: 'rounded',
+            columnWidth: '55%',
+        },
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+    },
+    series: [{
+        name: 'Net Profit',
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+    }, {
+        name: 'Revenue',
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+    }, {
+        name: 'Free Cash Flow',
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+    }],
+    xaxis: {
+        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+    },
+    yaxis: {
+        title: {
+            text: 'Rp. '
+        }
+    },
+    fill: {
+        opacity: 1
+
+    },
+    tooltip: {
+        y: {
+            formatter: function (val) {
+                return "Rp. " + val + ""
+            }
+        }
+    },
+    colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary, '#222222']
+}
+
+var apbd2 = new ApexCharts(
+    document.querySelector("#apbd-chart2"),
+    columnChart2
+);
+
+apbd2.render();
+
+var columnChart3 = {
+    chart: {
+        height:350,
+        type: 'bar',
+        toolbar:{
+          show: false
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            endingShape: 'rounded',
+            columnWidth: '55%',
+        },
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+    },
+    series: [{
+        name: 'Net Profit',
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+    }, {
+        name: 'Revenue',
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+    }, {
+        name: 'Free Cash Flow',
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+    }],
+    xaxis: {
+        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+    },
+    yaxis: {
+        title: {
+            text: 'Rp. '
+        }
+    },
+    fill: {
+        opacity: 1
+
+    },
+    tooltip: {
+        y: {
+            formatter: function (val) {
+                return "Rp. " + val + ""
+            }
+        }
+    },
+    colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary, '#222222']
+}
+
+var trp = new ApexCharts(
+    document.querySelector("#TRPT"),
+    columnChart3
+);
+
+trp.render();
+
+var columnChart4 = {
+    chart: {
+        height:350,
+        type: 'bar',
+        toolbar:{
+          show: false
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            endingShape: 'rounded',
+            columnWidth: '55%',
+        },
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+    },
+    series: [{
+        name: 'Net Profit',
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+    }, {
+        name: 'Revenue',
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+    }, {
+        name: 'Free Cash Flow',
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+    }],
+    xaxis: {
+        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+    },
+    yaxis: {
+        title: {
+            text: 'Rp. '
+        }
+    },
+    fill: {
+        opacity: 1
+
+    },
+    tooltip: {
+        y: {
+            formatter: function (val) {
+                return "Rp. " + val + ""
+            }
+        }
+    },
+    colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary, '#222222']
+}
+
+var trb = new ApexCharts(
+    document.querySelector("#TRBT"),
+    columnChart4
+);
+
+trb.render();
 
 loadSum1();
 loadSum2();
-dataload();
 loadDataChart();
 setInterval(() => {
   loadSum1();
   loadSum2();
-  dataload();
   loadDataChart();
 }, 5000);
  
-var tes = document.getElementById("sum1")
-tes.append("10")
-$('#sum1').append(10)
+// var tes = document.getElementById("sum1")
+// tes.append("10")
+// $('#sum1').append(10)
 </script>
 @endpush
