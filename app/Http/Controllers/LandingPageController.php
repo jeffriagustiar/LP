@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\ApbdModel;
 use App\Model\LandingModel;
 use App\Model\Sp2dModel;
 use App\Model\StsModel;
@@ -77,9 +78,23 @@ class LandingPageController extends Controller
 
     public function dataApbd()
     {
-        $datap = [0,723204712708,818001019824,708900288188,682401082138,0];
-        $datab = [0,794830171158,876370302788,750947870902,747200734949,0];
-        $datapem = [0,106963597218,69669282964,42047582714,64799652811,0];
+        $t = ApbdModel::limit(1)
+                        ->select(['KDTAHAP'])
+                        ->orderBy('KDTAHAP','DESC')
+                        ->get();
+        $p = ApbdModel::join('DASKD as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->sum('a.NILAI');
+        $b = ApbdModel::join('DASKR as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->sum('a.NILAI');
+        $p2 = ApbdModel::join('DASKB as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->sum('a.NILAI');
+
+        $datap = ["746928793801","723204712708","818001019824",'708900288188',"682401082138",$p];
+        $datab = ["749948767275","794830171158","876370302788","750947870902","747200734949",$b];
+        $datapem = ["47259022994","106963597218","69669282964","42047582714","64799652811",$p2];
         $a = [
             'pendapatan' => $datap,
             'belanja' => $datab,
@@ -91,9 +106,9 @@ class LandingPageController extends Controller
 
     public function dataRealisasiApbd()
     {
-        $datap = [0,708532769024,796837014305,717701105715,677296933413,0];
-        $datab = [0,716396747761,805939541097,702910943145,677726610137,0];
-        $datapem = [0,106963597218,79735967331,59945152495,74735915027,0];
+        $datap = ["739010529392.60","708532769024","796837014305","717701105715","677296933413",0];
+        $datab = ["695997486674.48","716396747761","805939541097","702910943145","677726610137",0];
+        $datapem = ["78089893439","106963597218","79735967331","59945152495","74735915027",0];
         $a = [
             'pendapatan' => $datap,
             'belanja' => $datab,
