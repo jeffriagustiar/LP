@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\ApbdModel;
+use App\Model\JurnalModel;
 use App\Model\LandingModel;
 use App\Model\Sp2dModel;
 use App\Model\StsModel;
@@ -106,9 +107,23 @@ class LandingPageController extends Controller
 
     public function dataRealisasiApbd()
     {
-        $datap = ["739010529392.60","708532769024","796837014305","717701105715","677296933413",0];
-        $datab = ["695997486674.48","716396747761","805939541097","702910943145","677726610137",0];
-        $datapem = ["78089893439","106963597218","79735967331","59945152495","74735915027",0];
+        $p = JurnalModel::whereIn('JNS_JURNAL',['1','3','08'])
+                        ->where('KDSTATUS','!=','142')
+                        ->where('jmatangk','4')->sum('nilaik');
+        $p2 = JurnalModel::whereIn('JNS_JURNAL',['1','3','08'])
+                        ->where('KDSTATUS','!=','142')
+                        ->where('jmatangk','6')->sum('nilaik');
+        $b1 = JurnalModel::whereIn('JNS_JURNAL',['1','3','08'])
+                        ->where('KDSTATUS','!=','142')
+                        ->where('jmatangd','5')->sum('nilaid');
+        $b2 = JurnalModel::whereIn('JNS_JURNAL',['1','3','08'])
+                        ->where('KDSTATUS','!=','142')
+                        ->where('jmatangk','5')->sum('nilaik');
+        $b = $b1-$b2;
+
+        $datap = ["739010529392.60","708532769024","796837014305","717701105715","677296933413",$p];
+        $datab = ["695997486674.48","716396747761","805939541097","702910943145","677726610137",$b];
+        $datapem = ["78089893439","106963597218","79735967331","59945152495","74735915027",$p2];
         $a = [
             'pendapatan' => $datap,
             'belanja' => $datab,
