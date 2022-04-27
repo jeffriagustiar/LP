@@ -457,56 +457,58 @@ $.ajax({
   }
 })
 
-var columnChart2 = {
-    chart: {
-        id : 'chart',
-        height:350,
-        type: 'bar',
-        toolbar:{
-          show: false
-        }
-    },
-    plotOptions: {
-        bar: {
-            horizontal: false,
-            endingShape: 'rounded',
-            columnWidth: '55%',
-        },
-    },
-    dataLabels: {
-        enabled: false
-    },
-    stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-    },
-    series: [],
-    xaxis: {
-        categories: ['PAD', 'Pend. Tranfer', 'Pendapatan Lain-Lain'],
-    },
-    yaxis: {
-        title: {
-            text: 'Rp. '
-        }
-    },
-    fill: {
-        opacity: 1
 
+var options = {
+  series: [],
+  chart: {
+    type: 'bar',
+    height: 350,
+    stacked: true,
+    toolbar:{
+      show: false
+    }
+  },
+  responsive: [{
+    breakpoint: 480,
+    options: {
+      legend: {
+        position: 'bottom',
+        offsetX: -10,
+        offsetY: 0
+      }
+    }
+  }],
+  plotOptions: {
+    bar: {
+      horizontal: false,
+      borderRadius: 10
     },
-    tooltip: {
-        y: {
-            formatter: function (val) {
-                return "Rp. " + val + ""
-            }
-        }
-    },
-    colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary, '#222222']
-}
+  },
+  dataLabels: {
+    enabled: false
+  },
+  xaxis: {
+    categories: ['PAD', 'Pend. Tranfer', 'Pendapatan Lain-Lain'],
+  },
+  legend: {
+    position: 'bottom',
+  },
+  fill: {
+    opacity: 1
+  },
+  tooltip: {
+    y: {
+      formatter: function (val) {
+        return "Rp. " + val + ""
+      }
+    }
+  },
+  colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary]
+};
 
 var trp = new ApexCharts(
     document.querySelector("#TRPT"),
-    columnChart2
+    options
 );
 
 trp.render();
@@ -529,63 +531,65 @@ $.ajax({
   }
 })
 
-var columnChart3 = {
-    chart: {
-        id : 'chart',
-        height:350,
-        type: 'bar',
-        toolbar:{
-          show: false
-        }
-    },
-    plotOptions: {
-        bar: {
-            horizontal: false,
-            endingShape: 'rounded',
-            columnWidth: '55%',
-        },
-    },
-    dataLabels: {
-        enabled: false
-    },
-    stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-    },
-    series: [],
-    xaxis: {
-        categories: [
-          'Pegawai', 
-          'Barang Jasa', 
-          'Hibah',
-          'Bantuan Sosial',
-          'Modal',
-          'Tidak Terduga'
-        ],
-    },
-    yaxis: {
-        title: {
-            text: 'Rp. '
-        }
-    },
-    fill: {
-        opacity: 1
 
+var options2 = {
+  series: [],
+  chart: {
+    type: 'bar',
+    height: 350,
+    stacked: true,
+    toolbar:{
+      show: false
+    }
+  },
+  responsive: [{
+    breakpoint: 480,
+    options: {
+      legend: {
+        position: 'bottom',
+        offsetX: -10,
+        offsetY: 0
+      }
+    }
+  }],
+  plotOptions: {
+    bar: {
+      horizontal: false,
+      borderRadius: 10
     },
-    tooltip: {
-        y: {
-            formatter: function (val) {
-                return "Rp. " + val + ""
-            }
-        }
-    },
-    colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary, '#222222']
-}
+  },
+  dataLabels: {
+    enabled: false
+  },
+  xaxis: {
+    categories: [
+      'Pegawai',
+      'Barang Jasa',
+      'Hibah',
+      'Bantuan Sosial',
+      'Modal',
+      'Tidak Terduga'
+    ],
+  },
+  legend: {
+    position: 'bottom',
+  },
+  fill: {
+    opacity: 1
+  },
+  tooltip: {
+    y: {
+      formatter: function (val) {
+        return "Rp. " + val + ""
+      }
+    }
+  },
+  colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary]
+};
 
 var trb = new ApexCharts(
     document.querySelector("#TRBT"),
-    columnChart3
+    options2
 );
 
 trb.render();
