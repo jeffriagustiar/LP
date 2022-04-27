@@ -446,8 +446,9 @@ $.ajax({
   }
 })
 
-var columnChart3 = {
+var columnChart2 = {
     chart: {
+        id : 'chart',
         height:350,
         type: 'bar',
         toolbar:{
@@ -469,18 +470,9 @@ var columnChart3 = {
         width: 2,
         colors: ['transparent']
     },
-    series: [{
-        name: 'Net Profit',
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-    }, {
-        name: 'Revenue',
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    }, {
-        name: 'Free Cash Flow',
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-    }],
+    series: [],
     xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        categories: ['PAD', 'Pend. Tranfer', 'Pendapatan Lain-Lain'],
     },
     yaxis: {
         title: {
@@ -503,69 +495,32 @@ var columnChart3 = {
 
 var trp = new ApexCharts(
     document.querySelector("#TRPT"),
-    columnChart3
+    columnChart2
 );
 
 trp.render();
 
-var columnChart4 = {
-    chart: {
-        height:350,
-        type: 'bar',
-        toolbar:{
-          show: false
-        }
-    },
-    plotOptions: {
-        bar: {
-            horizontal: false,
-            endingShape: 'rounded',
-            columnWidth: '55%',
-        },
-    },
-    dataLabels: {
-        enabled: false
-    },
-    stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-    },
-    series: [{
-        name: 'Net Profit',
-        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-    }, {
-        name: 'Revenue',
-        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-    }, {
-        name: 'Free Cash Flow',
-        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-    }],
-    xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-    },
-    yaxis: {
-        title: {
-            text: 'Rp. '
-        }
-    },
-    fill: {
-        opacity: 1
+$.ajax({
+  url : '/dataTrp',
+  type : 'GET',
+  dataType : 'json',
+  success : function (data){
+    trp.updateSeries([
+      {
+        name : 'Target',
+        data : data.target
+      },{
+        name : 'Realisasi',
+        data : data.realisasi
+      }
+    ])
 
-    },
-    tooltip: {
-        y: {
-            formatter: function (val) {
-                return "Rp. " + val + ""
-            }
-        }
-    },
-    colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary, '#222222']
-}
+  }
+})
 
 var trb = new ApexCharts(
     document.querySelector("#TRBT"),
-    columnChart4
+    columnChart2
 );
 
 trb.render();

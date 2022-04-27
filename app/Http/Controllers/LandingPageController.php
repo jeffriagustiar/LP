@@ -132,4 +132,54 @@ class LandingPageController extends Controller
 
         return response()->json($a);
     }
+
+    public function dataRealisasiTrp()
+    {
+        $t = ApbdModel::limit(1)
+                        ->select(['KDTAHAP'])
+                        ->orderBy('KDTAHAP','DESC')
+                        ->get();
+        $p = ApbdModel::join('DASKD as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->join('MATANGD as b','a.MTGKEY','=','b.MTGKEY')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->where('b.KDPER','like','%4.1.%')
+                        ->sum('a.NILAI');
+        $pt = ApbdModel::join('DASKD as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->join('MATANGD as b','a.MTGKEY','=','b.MTGKEY')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->where('b.KDPER','like','%4.2.%')
+                        ->sum('a.NILAI');
+        $pl = ApbdModel::join('DASKD as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->join('MATANGD as b','a.MTGKEY','=','b.MTGKEY')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->where('b.KDPER','like','%4.3.%')
+                        ->sum('a.NILAI');
+        
+        $p2 = JurnalModel::join('MATANGD as a','jurnal.mtgkeyk','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangk','4')
+                        ->where('a.KDPER','like','%4.1.%')
+                        ->sum('jurnal.nilaik');
+        $pt2 = JurnalModel::join('MATANGD as a','jurnal.mtgkeyk','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangk','4')
+                        ->where('a.KDPER','like','%4.2.%')
+                        ->sum('jurnal.nilaik');
+        $pl2 = JurnalModel::join('MATANGD as a','jurnal.mtgkeyk','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangk','4')
+                        ->where('a.KDPER','like','%4.3.%')
+                        ->sum('jurnal.nilaik');
+        $dataA = [$p,$pt,$pl];
+        $dataR = [$p2,$pt2,$pl2];
+        $a = [
+            'target' => $dataA,
+            'realisasi' => $dataR
+        ];
+
+        return response()->json($a);
+    }
 }
