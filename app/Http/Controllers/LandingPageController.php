@@ -34,26 +34,15 @@ class LandingPageController extends Controller
     public function dataChart()
     {
         $a = [];
-        // $data = LandingModel::sum('nilai')
-        // ->whereMonth('created_at','=','11')->get();
-                                // ->orderBy('created_at');
-                            //    $data= DB::table('tbl_nilai')->select(
-                            //         [
-                            //           DB::raw('SUM(nilai) as nilai'),
-                            //           DB::raw('MONTH(created_at) as date')
-                            //         ])
-                            //         ->groupBy('date')
-                            //         ->orderby('date')
-                            //         ->get();
-                            $data= Sp2dModel::join('SP2D','SP2DDETR.NOSP2D','=','SP2D.NOSP2D')
-                                        ->select(
-                                            [
-                                                DB::raw('SUM(SP2DDETR.NILAI) as nilai'),
-                                                DB::raw('MONTH(SP2D.TGLSP2D) as date1')
-                                            ])
-                                        ->groupBy(DB::raw('MONTH(SP2D.TGLSP2D)'))
-                                        ->orderBY(DB::raw('MONTH(SP2D.TGLSP2D)'))
-                                        ->get();
+        $data= Sp2dModel::join('SP2D','SP2DDETR.NOSP2D','=','SP2D.NOSP2D')
+                        ->select(
+                            [
+                                DB::raw('SUM(SP2DDETR.NILAI) as nilai'),
+                                DB::raw('MONTH(SP2D.TGLSP2D) as date1')
+                            ])
+                        ->groupBy(DB::raw('MONTH(SP2D.TGLSP2D)'))
+                        ->orderBY(DB::raw('MONTH(SP2D.TGLSP2D)'))
+                        ->get();
         foreach($data as $d)
         {
             $a[] = $d->nilai;
@@ -69,12 +58,7 @@ class LandingPageController extends Controller
                             ->limit(5)
                             ->orderBy('TGLSTS', 'desc')
                             ->get();
-                            // ->tosql();
-        // dd($data);
-        // return DataTables::of($data)->make(true);
         return response()->json($data,200);
-
-        // return Query($data);
     }
 
     public function dataApbd()
@@ -175,6 +159,132 @@ class LandingPageController extends Controller
                         ->sum('jurnal.nilaik');
         $dataA = [$p,$pt,$pl];
         $dataR = [$p2,$pt2,$pl2];
+        $a = [
+            'target' => $dataA,
+            'realisasi' => $dataR
+        ];
+
+        return response()->json($a);
+    }
+
+    public function dataRealisasiTrb()
+    {
+        $t = ApbdModel::limit(1)
+                        ->select(['KDTAHAP'])
+                        ->orderBy('KDTAHAP','DESC')
+                        ->get();
+        $bp = ApbdModel::join('DASKR as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->join('MATANGR as b','a.MTGKEY','=','b.MTGKEY')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->where('b.KDPER','like','%5.1.01.%')
+                        ->sum('a.NILAI');
+        $bbj = ApbdModel::join('DASKR as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->join('MATANGR as b','a.MTGKEY','=','b.MTGKEY')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->where('b.KDPER','like','%5.1.02.%')
+                        ->sum('a.NILAI');
+        $bh = ApbdModel::join('DASKR as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->join('MATANGR as b','a.MTGKEY','=','b.MTGKEY')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->where('b.KDPER','like','%5.1.05.%')
+                        ->sum('a.NILAI');
+        $bbs = ApbdModel::join('DASKR as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->join('MATANGR as b','a.MTGKEY','=','b.MTGKEY')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->where('b.KDPER','like','%5.1.06.%')
+                        ->sum('a.NILAI');
+        $bm = ApbdModel::join('DASKR as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->join('MATANGR as b','a.MTGKEY','=','b.MTGKEY')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->where('b.KDPER','like','%5.2.%')
+                        ->sum('a.NILAI');
+        $btt = ApbdModel::join('DASKR as a','SKDASK.IDXDASK','=','a.IDXDASK')
+                        ->join('MATANGR as b','a.MTGKEY','=','b.MTGKEY')
+                        ->where('KDTAHAP',$t[0]->KDTAHAP)
+                        ->where('b.KDPER','like','%5.3.%')
+                        ->sum('a.NILAI');
+        
+        $bp1 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyd','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangd','5')
+                        ->where('a.KDPER','like','%5.1.01.%')
+                        ->sum('jurnal.nilaid');
+        $bp2 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyk','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangk','5')
+                        ->where('a.KDPER','like','%5.1.01.%')
+                        ->sum('jurnal.nilaik');
+        $bpt = $bp1-$bp2;
+        $bbj1 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyd','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangd','5')
+                        ->where('a.KDPER','like','%5.1.02.%')
+                        ->sum('jurnal.nilaid');
+        $bbj2 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyk','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangk','5')
+                        ->where('a.KDPER','like','%5.1.02.%')
+                        ->sum('jurnal.nilaik');
+        $bbjt = $bbj1-$bbj2;
+        $bh1 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyd','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangd','5')
+                        ->where('a.KDPER','like','%5.1.05.%')
+                        ->sum('jurnal.nilaid');
+        $bh2 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyk','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangk','5')
+                        ->where('a.KDPER','like','%5.1.05.%')
+                        ->sum('jurnal.nilaik');
+        $bht = $bh1-$bh2;
+        $bbs1 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyd','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangd','5')
+                        ->where('a.KDPER','like','%5.1.06.%')
+                        ->sum('jurnal.nilaid');
+        $bbs2 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyk','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangk','5')
+                        ->where('a.KDPER','like','%5.1.06.%')
+                        ->sum('jurnal.nilaik');
+        $bbst = $bbs1-$bbs2;
+        $bm1 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyd','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangd','5')
+                        ->where('a.KDPER','like','%5.2.%')
+                        ->sum('jurnal.nilaid');
+        $bm2 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyk','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangk','5')
+                        ->where('a.KDPER','like','%5.2.%')
+                        ->sum('jurnal.nilaik');
+        $bmt = $bm1-$bm2;
+        $btt1 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyd','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangd','5')
+                        ->where('a.KDPER','like','%5.3.%')
+                        ->sum('jurnal.nilaid');
+        $btt2 = JurnalModel::join('MATANGR as a','jurnal.mtgkeyk','=','a.MTGKEY')
+                        ->whereIn('jurnal.JNS_JURNAL',['1','3','08'])
+                        ->where('jurnal.KDSTATUS','!=','142')
+                        ->where('jurnal.jmatangk','5')
+                        ->where('a.KDPER','like','%5.3.%')
+                        ->sum('jurnal.nilaik');
+        $bttt = $btt1-$btt2;
+
+        $dataA = [$bp,$bbj,$bh,$bbs,$bm,$btt];
+        $dataR = [$bpt,$bbjt,$bht,$bbst,$bmt,$bttt];
         $a = [
             'target' => $dataA,
             'realisasi' => $dataR

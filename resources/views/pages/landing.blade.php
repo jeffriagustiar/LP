@@ -1,7 +1,7 @@
 @extends('layouts.appl')
 
 @section('title')
-viho - Premium Admin Template
+Landing Page
 @endsection
 
 @section('conten')
@@ -17,8 +17,11 @@ viho - Premium Admin Template
               </div>
             </div>
             <div class="card-body text-center p-t-0">
-              <h3 class="font-light">Wellcome Back, John!!</h3>
-              <p>Welcome to the viho Family! we are glad that you are visite this dashboard. we will be happy to help you grow your business.</p>
+              <h3 class="font-light">VISI</h3>
+              <p>Terwujutnya Pengelolaan Keuangan Daerah Secara Profesional dengan Berbasis Teknologi Informasi</p>
+              <h3 class="font-light">MISI</h3>
+              <p>1. Terwujutnya Pengelolaan Keuangan Daerah yang Transparan, Efisien, Efektif, Ekonomis, & Akuntable</p>
+              <p>2. Menggali Potensi dan Meningkatkan Pengelolaan Sumber - Sumber Pendapatan Daerah</p>
               <a href="{{ route('dashaboard') }}"class="btn btn-light">Dashboard</a>
             </div>
           </div>
@@ -31,7 +34,10 @@ viho - Premium Admin Template
                 <i class="fa fa-money"></i>
               </div>
               <h5 id="sum1" class="counter"></h5> {{-- sini 8,50,49 --}}
-              <p>Our Annual Income</p><a class="btn-arrow arrow-primary" href="javascript:void(0)"><i class="toprightarrow-primary fa fa-arrow-up me-2"></i>95.54% </a>
+              {{-- <p>Our Annual Income</p> --}}
+              <a class="btn-arrow arrow-primary" href="javascript:void(0)">
+                {{-- <i class="toprightarrow-primary fa fa-arrow-up me-2"></i> --}}
+                Total Nilai Pengeluaran</a>
               <div class="parrten">
                 <i class="fa fa-money"></i>
               </div>
@@ -45,7 +51,10 @@ viho - Premium Admin Template
                 <i class="fa fa-money"></i>
               </div>
               <h5 id="sum2" class="counter"></h5>{{-- sini --}}
-              <p>our Annual losses</p><a class="btn-arrow arrow-secondary" href="javascript:void(0)"><i class="toprightarrow-secondary fa fa-arrow-up me-2"></i>90.54% </a>
+              {{-- <p>our Annual losses</p> --}}
+              <a class="btn-arrow arrow-secondary" href="javascript:void(0)">
+                {{-- <i class="toprightarrow-secondary fa fa-arrow-up me-2"></i> --}}
+                Total Nilai Pendapatan</a>
               <div class="parrten">
                 <i class="fa fa-money"></i>
               </div>
@@ -59,9 +68,11 @@ viho - Premium Admin Template
               <div class="card income-card">
                 <div class="card-header pb-0">
                   <div class="header-top d-sm-flex align-items-center">
-                    <h5>Sales overview</h5>
+                    <h5>Nilai SP2D Bulanan</h5>
                     <div class="center-content">
-                      <p class="d-sm-flex align-items-center"><span class="font-primary m-r-10 f-w-700" id="1sum"></span><i class="toprightarrow-primary fa fa-arrow-up m-r-10"></i>86% More than last year</p>
+                      <p class="d-sm-flex align-items-center"><span class="font-primary m-r-10 f-w-700">Total : </span><span class="font-primary m-r-10 f-w-700" id="1sum"></span>
+                        {{-- <i class="toprightarrow-primary fa fa-arrow-up m-r-10"></i>86% More than last year --}}
+                      </p>
                     </div>
                     <div class="setting-list">
                       <ul class="list-unstyled setting-option">
@@ -518,12 +529,84 @@ $.ajax({
   }
 })
 
+var columnChart3 = {
+    chart: {
+        id : 'chart',
+        height:350,
+        type: 'bar',
+        toolbar:{
+          show: false
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            endingShape: 'rounded',
+            columnWidth: '55%',
+        },
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+    },
+    series: [],
+    xaxis: {
+        categories: [
+          'Pegawai', 
+          'Barang Jasa', 
+          'Hibah',
+          'Bantuan Sosial',
+          'Modal',
+          'Tidak Terduga'
+        ],
+    },
+    yaxis: {
+        title: {
+            text: 'Rp. '
+        }
+    },
+    fill: {
+        opacity: 1
+
+    },
+    tooltip: {
+        y: {
+            formatter: function (val) {
+                return "Rp. " + val + ""
+            }
+        }
+    },
+    colors:[vihoAdminConfig.primary, vihoAdminConfig.secondary, '#222222']
+}
+
 var trb = new ApexCharts(
     document.querySelector("#TRBT"),
-    columnChart2
+    columnChart3
 );
 
 trb.render();
+
+$.ajax({
+  url : '/dataTrb',
+  type : 'GET',
+  dataType : 'json',
+  success : function (data){
+    trb.updateSeries([
+      {
+        name : 'Target',
+        data : data.target
+      },{
+        name : 'Realisasi',
+        data : data.realisasi
+      }
+    ])
+
+  }
+})
 
 loadSum1();
 loadSum2();

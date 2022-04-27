@@ -60,6 +60,7 @@ Route::get('/dataload', 'LandingPageController@dataload')->name('dataload');
 Route::get('/dataApbd', 'LandingPageController@dataApbd')->name('dataApbd');
 Route::get('/dataRApbd', 'LandingPageController@dataRealisasiApbd')->name('dataRApbd');
 Route::get('/dataTrp', 'LandingPageController@dataRealisasiTrp')->name('dataTrp');
+Route::get('/dataTrb', 'LandingPageController@dataRealisasiTrb')->name('dataTrb');
 Auth::routes();
 
 Route::group(['middleware' => ['role:admin']], function () {
