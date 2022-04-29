@@ -41,13 +41,15 @@
 
           <div class="tab-pane fade show active" id="bvalidasi" role="tabpanel" aria-labelledby="bvalidasi-tab">
             <br>
-            <table class="datatables" id="tableBValidasi">
+            <table class="datatables" id="tableBValidasi" style="width: 0px;">
               <thead>
                 <tr>
-                  <th>NoSP2D</th>
-                  <th>Nama Kegiatan</th>
-                  <th>Nama Rekening</th>
-                  <th>Nilai</th>
+                  <th style="width: 0px;">No Validasi</th>
+                  <th style="width: 0px;">NoSTS</th>
+                  <th style="width: 0px;">Nama Validasi</th>
+                  <th style="width: 0px;">Tanggal STS</th>
+                  <th style="width: 0px;">Uraian</th>
+                  <th style="width: 0px;">Action</th>
                 </tr>
               </thead>
             </table>
@@ -261,14 +263,23 @@
         $('#tableBValidasi').DataTable({
           processing: true,
           serverSide: true,
-          autoWidth: false,
+          AutoWidth: false,
           ajax : '/validasi/NonValid',
           columns : [
-            {data : 'NOSTS' , name : 'STS.NOSTS'},
-            {data : 'NMBKAS' , name : 'b.NMBKAS'},
-            {data : 'TGLSTS' , name : 'STS.TGLSTS'},
-            {data : 'URAIAN' , name : 'STS.URAIAN'},
+            {data : 'no', width : "40em"},
+            {data : 'NOSTS' , name : 'STS.NOSTS', width : "10em"},
+            {data : 'NMBKAS' , name : 'b.NMBKAS', width : "15em"},
+            {data : 'TGLSTS' , name : 'STS.TGLSTS', width : "15em"},
+            {data : 'URAIAN' , name : 'STS.URAIAN', width : "40em"},
+            {data : 'add', width : "10em"},
           ],
+          
+        });
+
+        $('body').on('click', '.addData', function () {
+          var id = $(this).data("id");
+          var x = document.getElementById("nov").value;
+          console.log(x,id)
         });
 
 

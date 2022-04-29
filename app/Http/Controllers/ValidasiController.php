@@ -76,6 +76,22 @@ class ValidasiController extends Controller
                                     ->whereNull('a.NOSTS')
                                     ->whereNotNull('STS.TGLVALID');
 
-        return DataTables::of($data)->make(true);
+        return DataTables::of($data)
+                            ->addIndexColumn()
+                            ->addColumn('add', function($d){
+                                $a = '<a 
+                                        href="javascript:void(0)" 
+                                        data-toggle="tooltip"  
+                                        data-id="'.$d->NOSTS.'" 
+                                        data-original-title="Delete" 
+                                        class="btn btn-primary btn-sm addData">
+                                        <i class="icofont icofont-ui-add"></i>
+                                    </a>';
+                                return $a;
+                                // return $d->NOSTS;
+                            })
+                            ->addColumn('no','<input type="text" class="form-control" id="nov" placeholder="Nomor Validasi" require>')
+                            ->rawColumns(['add','no'])
+                            ->make(true);
     }
 }
